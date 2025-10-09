@@ -1,19 +1,70 @@
 /* src/App.css */
 
-.app-container {
-  text-align: center;
-  padding: 2rem;
-  background-color: #0d9488;
-  min-height: 100vh;
-  color: white;
+body {
+  margin: 0;
   font-family: 'Poppins', sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
 }
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #0d9488;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar h1 {
+  font-size: 1.5rem;
+}
+
+.navbar nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 500;
+}
+
+.navbar nav a:hover {
+  text-decoration: underline;
+}
+
+/* Main Section */
+main {
+  padding: 2rem;
+  text-align: center;
+}
+
+h2 {
+  color: #14b8a6;
+  margin-top: 2rem;
 }
 
 p {
-  font-size: 1.25rem;
+  font-size: 1rem;
+  opacity: 0.9;
 }
+
+/* Rates Grid */
+.rates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.rate-card {
+  background: #1e293b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.rate-card strong {
+  display: block;
+  font-size: 1.2rem;
+  color: #0d9488;
+  }
