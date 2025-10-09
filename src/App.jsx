@@ -1,61 +1,77 @@
+// src/App.jsx
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import axios from "axios";
-import "./App.css";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function App() {
   const [amount, setAmount] = useState("");
-  const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("EUR");
-  const [converted, setConverted] = useState(null);
-  const [rates, setRates] = useState({});
-  const [chartData, setChartData] = useState({});
+  const [from, setFrom] = useState("USD");
+  const [to, setTo] = useState("EUR");
+  const [result, setResult] = useState(null);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
 
-  // Install prompt
+  // Capture PWA install prompt
   useEffect(() => {
-    window.addEventListener("beforeinstallprompt", (e) => {
+    const handler = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
-    });
-  }, []);
-
-  // Fetch live rates
-  useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        const res = await axios.get("https://api.exchangerate.host/latest?base=USD");
-        setRates(res.data.rates);
-        setChartData({
-          labels: Object.keys(res.data.rates).slice(0, 10),
-          datasets: [
-            {
-              label: "Exchange Rate vs USD",
-              data: Object.values(res.data.rates).slice(0, 10),
-              borderColor: "#0d9488",
-              backgroundColor: "rgba(20,184,166,0.2)",
-            },
-          ],
-        });
-      } catch (err) {
-        console.error(err);
-      }
     };
-    fetchRates();
+    window.addEventListener("beforeinstallprompt", handler);
+
+    window.addEventListener("appinstalled", () => {
+      setIsInstalled(true);
+    });
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+    };
   }, []);
 
-  const handleConvert = () => {
-    const rate = rates[toCurrency];
-    if (rate) setConverted((parseFloat(amount) * rate).toFixed(2));
-  };
-
-  const handleInstall = () => {
+  const handleInstall = async () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
-    } else {
-      alert("Installation not available on this device.");
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") setIsInstalled(true);
+      setDeferredPrompt(null);
     }
+  };
+
+  const convertCurrency = () => {
+    const rates = { USD: 1, EUR: 0.93, GBP: 0.82 };
+    const converted = (amount / rates[from]) * rates[to];
+    setResult(converted.toFixed(2));
+  };
+
+  const chartData = {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        label: "Trading Price",
+        data: [120, 130, 125, 140, 135, 145, 150],
+        borderColor: "#0d9488",
+        backgroundColor: "rgba(14, 203, 129, 0.2)",
+      },
+    ],
   };
 
   return (
@@ -70,23 +86,25 @@ function App() {
         </nav>
       </header>
 
+      {/* Main */}
       <main>
-        <h2>Welcome to FiskeyTrade 🚀</h2>
-        <p>Your PWA Trading App is live with real rates & charts!</p>
-
-        {/* Rates */}
-        <section id="rates" className="rates-grid">
-          {Object.entries(rates)
-            .slice(0, 10)
-            .map(([currency, rate]) => (
-              <div key={currency} className="rate-card">
-                <strong>{currency}</strong> {rate.toFixed(4)}
-              </div>
-            ))}
+        <section id="rates">
+          <h2>Exchange Rates</h2>
+          <div className="rates-grid">
+            <div className="rate-card">
+              <strong>USD</strong> 1.00
+            </div>
+            <div className="rate-card">
+              <strong>EUR</strong> 0.93
+            </div>
+            <div className="rate-card">
+              <strong>GBP</strong> 0.82
+            </div>
+          </div>
         </section>
 
-        {/* Converter */}
         <section id="converter" className="converter-box">
+          <h2>Currency Converter</h2>
           <div className="inputs">
             <input
               type="number"
@@ -94,63 +112,72 @@ function App() {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
-            <select value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
+            <select value={from} onChange={(e) => setFrom(e.target.value)}>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
             </select>
-            <span>→</span>
-            <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
+            <select value={to} onChange={(e) => setTo(e.target.value)}>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
             </select>
+            <button onClick={convertCurrency}>Convert</button>
           </div>
-          <button onClick={handleConvert}>Convert</button>
-          {converted && <div className="result">{converted} {toCurrency}</div>}
+          {result && <div className="result">{result}</div>}
         </section>
 
-        {/* Trading & Chart */}
         <section id="trade" className="trade-grid">
+          {/* Left column */}
           <div>
             <div className="balance-card">
               <h3>Balance</h3>
-              <p>USD 10,000</p>
+              <p>$10,000</p>
             </div>
-
-            <div className="order-card">
-              <h3>New Order</h3>
-              <div className="inputs">
-                <input type="text" placeholder="Symbol" />
-                <input type="number" placeholder="Amount" />
-                <select>
-                  <option value="buy">Buy</option>
-                  <option value="sell">Sell</option>
-                </select>
-                <button className="primary">Submit</button>
-              </div>
-            </div>
-
             <div className="positions-card">
-              <h3>Positions</h3>
+              <h3>Open Positions</h3>
               <div className="position-row">
-                <span>USD/EUR 100</span>
+                <span>EUR/USD</span>
+                <span>+50</span>
                 <button className="close-btn">Close</button>
               </div>
             </div>
+            <div className="history-card">
+              <h3>History</h3>
+              <div className="position-row">
+                <span>GBP/USD</span>
+                <span>-20</span>
+              </div>
+            </div>
           </div>
 
-          <div className="chart-box">
-            <h3>Exchange Chart</h3>
-            <Line data={chartData} />
+          {/* Right column: order card */}
+          <div className="order-card">
+            <h3>Place Order</h3>
+            <div className="inputs">
+              <select>
+                <option>Buy</option>
+                <option>Sell</option>
+              </select>
+              <input type="number" placeholder="Amount" />
+              <button className="primary">Submit</button>
+            </div>
           </div>
+        </section>
+
+        {/* Chart */}
+        <section className="chart-box">
+          <h2>Market Chart</h2>
+          <Line data={chartData} />
         </section>
       </main>
 
-      {/* Install Button */}
-      <button className="install-fab" onClick={handleInstall}>
-        Download App
-      </button>
+      {/* Floating Install Button */}
+      {!isInstalled && (
+        <button className="install-fab" onClick={handleInstall}>
+          Download App
+        </button>
+      )}
     </div>
   );
 }
