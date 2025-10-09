@@ -1,53 +1,46 @@
 {
   "name": "FiskeyTrade",
   "short_name": "FiskeyTrade",
-  "description": "Forex & trading PWA like MT5",
+  "description": "Forex & trading platform PWA",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#0f172a",
   "theme_color": "#0d9488",
   "icons": [
     {
-      "src": "/icons/icon-72x72.png",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAIAAAC3d0iEAAAACXBIWXMAAAsTAAALEwEAmpwYAAABQ0lEQVR4nO2XwQ3CMAxFAz2Xnn+fWYQbNyhAFS4qAwjM3FvOfMmQ4o5Yo0i1b6Ab3GcgGq+Xwc+57jv0fHEAUmhH3AJ9Heh7gE3M5F/TLwC93mcK90WqB4kqU9SHVUG1T3EIZhFxBlm+AvobwCWuId5HkFQ7L1gcWmRCpR4qgO9k3y3zwjQoM4+MYhH4Z2hQK2KgyUgC1AgYK9Z4UBgA4qLOhDRAABG/1IAhVldOEAAA6F3UFJlo3UUAAAOBHgwN0nMABAcGwgINXhRArF9+EfQl0UMW4SkGdIhFZ0QAAAABJRU5ErkJggg==",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-96x96.png",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAAgCAYAAABz2i9LAAAACXBIWXMAAAsTAAALEwEAmpwYAAABGUlEQVR4nO2XQQ6CQBBFz1mAAXooJwhBD0H2NJ8hHj6BsyS6rX5pl3F9uS3aZz2MNgkEAAAAAAAB8fxvR5i22yzG3xKzMF2cwljLR2m8YVtAi4NwDJj3F4n9a48NkaCqQhf4xkEoB8cAHUJFmAQuZCnWAZmCJjJCqV+QfQq4F3oN0xDLkM5yPwHpDJu2IZLohstxR2Bk4QWBgpRPEAAGMQx8AuqGxZ8VtXchL5I3myL3qv+ABwzW35lXyFQAAABJRU5ErkJggg==",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-128x128.png",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAABz2i9LAAAACXBIWXMAAAsTAAALEwEAmpwYAAABUUlEQVR4nO2ZQQ6CMBBFz5ghAjQAE7oBD5Jh+R2C9JOXxNd6l2sp5v7Wn4dgz2iQAAAAAAAAAAACwvjP7vvIYyQ1Yx3NWuA8zv2Z1c5CxioAGwMyhXTAZkG7UgyHRUF1YBNm9VgC2wNg7x3hASiIDiZjVUEqg9wE8WAkCEGJ9yJAaYgzpU3lEKWBDLBpBMMwxmH0LJAwxj1/AwAlxVtPOmFUGaAAAAAElFTkSuQmCC",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-144x144.png",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABFElEQVR4nO2XQQrCMAyFv9mBFqCJyAJWIBf6HgRhDI2a+GZTSS5DdFLe2lS0YTG/Ofc+S1ADAAAAAAAAAAAA8I4fvJ2XNRu06dle3m/FP1cl1gkQHcDJvA0rHHwCKxVyZsyUAWG6Yb6mC6HA1jO4lUMpAKmk8KRAx+I/4gMFYVhQw4wEBaBFF3ZfKAw4+5nQ0uUoBpocHqFsCF4hnKh/ABpSoYB1AAiwAAAABJRU5ErkJggg==",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-152x152.png",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABGklEQVR4nO2XQQrCMAxFf5mBFpCJyADWIBf6HgRhDI2a+GZTSQ5DdFLe2lS0YTG/Ofc+S1ADAAAAAAAAAAAAPg8w2OXpXsl3G+Z1XfPQ1gggkABNgEmAx6ZgVwF9Mi0Ei0AGkYFs9zAkxvYw3QAUnXfoiwC1gm4OQdWohvNMEt5AhU2wgw7mjIBmLYtR/3ewEIEvD8BRp4ADX2LgVQIawAAAABJRU5ErkJggg==",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABJUlEQVR4nO2XMQrCMAxE36YgBxoJJ2ADSoK/W5j+Glh8jSVkSmlr1a7kVsY3P68znRBLgAAAAAAAAAAAAD+2NnI+XQqPdgzG/X+nXrZ3Fyl+JqC/BhUwBHjD4y+wp2lKXgGd80QcRXqD/Aj4QD+uQ0pCOgFMPyCbyGbEPKQvAJuAZXHnQOgeKg0jOxlDgIF0GwQTGx4Dgh0F0mcCPYAaWZ8iC2QuTnS0pRJ0A+RWn2AM3iDzoJ9gAbwLc1kAZ9UDrDDmgAAAABJRU5ErkJggg==",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-384x384.png",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAAgCAYAAABz2i9LAAAACXBIWXMAAAsTAAALEwEAmpwYAAABRUlEQVR4nO2XQQrCMBBF/8pgGrmDkgCC0AB/AI9FqLEh2hfS+T8ZFYyi3ZW+v79s6S4AAAAAAAAAAAAA+Brmj3ddybTnVyzjNP+H7Y4vYQjABuAyYBxqBO8Bz6KMiI+QH8LAdlUGzEJQB2jPwnHAmh6r0hZ0l1BK8DOcCdhK7C6rgAi6wQ0tMV3g2wTkNmsJJNNmG+IQES3QwD0wFQl9wVQOYi94zTxv4nXY8y8AAAABJRU5ErkJggg==",
       "sizes": "384x384",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
-    }
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAAgCAYAAABz2i9LAAAACXBIWXMAAAsTAAALEwEAmpwYAAABUUlEQVR4nO2ZQQ6CQBBFz5ghAjQAE7oBD5Jh+R2C9JOXxNd6l2sp5v7Wn4dgz2iQAAAAAAAAAAACwvjP7vvIYyQ1Yx3NWuA8zv2Z1c5CxioAGwMyhXTAZkG7UgyHRUF1YBNm9VgC2wNg7x3hASiIDiZjVUEqg9wE8WAkCEGJ9yJAaYgzpU3lEKWBDLBpBMMwxmH0LJAwxj1/AwAlxVtPOmF
