@@ -2,31 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <!-- ✅ Prevent unwanted zooming and ensure responsiveness -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-    <!-- App Title -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#0d9488" />
     <title>Fiskey Trading Platform</title>
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
 
-    <!-- Favicon (can be updated later) -->
-    <link rel="icon" type="image/png" href="/icons/icon-192x192.png" />
-
-    <!-- App Theme Colors -->
-    <meta name="theme-color" content="#0d9488" />
-
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
+    <!-- Service Worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js");
+        });
+      }
+    </script>
   </head>
-
   <body>
     <div id="root"></div>
-
-    <!-- Main Script -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
   </html>
