@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- PWA manifest and service worker -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#0d9488" />
     <meta charset="UTF-8" />
-
-    <!-- ✅ Improved mobile scaling -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-
-    <title>Fiskey Trading App</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#0d9488" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Fiskey PWA</title>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -26,4 +18,4 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
-</html>
+  </html>
