@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- ✅ PWA Manifest and Service Worker -->
+    <!-- ✅ Basic Setup -->
     <meta charset="UTF-8" />
-    <meta 
-      name="viewport" 
+    <meta
+      name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <meta name="theme-color" content="#0d9488" />
-    <link rel="manifest" href="/manifest.json" />
+    <title>Fiskey PWA - Trade Smarter</title>
 
-    <title>Fiskey PWA</title>
+    <!-- ✅ SEO & Social Preview -->
+    <meta name="description" content="Fiskey PWA - Your all-in-one trading platform for forex, crypto, and stocks. Trade anywhere, anytime." />
+    <meta property="og:title" content="Fiskey Trading App" />
+    <meta property="og:description" content="A modern PWA trading platform like MT5 — built for speed, reliability, and flexibility." />
+    <meta property="og:image" content="/icons/icon-512x512.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://fiskey260.github.io/fiskey-pwa" />
+
+    <!-- ✅ Favicon and PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/png" href="/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-512x512.png" />
 
     <!-- ✅ Register Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js')
-            .then(() => console.log('Service Worker registered successfully'))
-            .catch((err) => console.log('Service Worker registration failed:', err));
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then(() => console.log('✅ Service Worker registered successfully'))
+            .catch((err) => console.log('❌ Service Worker registration failed:', err));
         });
       }
     </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
