@@ -4,6 +4,10 @@ import "./App.css";
 function App() {
   const [rates, setRates] = useState({});
   const [loading, setLoading] = useState(true);
+  const [amount, setAmount] = useState(1);
+  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [toCurrency, setToCurrency] = useState("KES");
+  const [converted, setConverted] = useState(null);
 
   useEffect(() => {
     async function fetchRates() {
@@ -20,6 +24,13 @@ function App() {
     fetchRates();
   }, []);
 
+  const convertCurrency = () => {
+    if (!rates[fromCurrency] || !rates[toCurrency]) return;
+    const usdValue = amount / rates[fromCurrency];
+    const targetValue = usdValue * rates[toCurrency];
+    setConverted(targetValue.toFixed(2));
+  };
+
   return (
     <div className="app-container">
       {/* ✅ Navigation Bar */}
@@ -28,6 +39,7 @@ function App() {
         <nav>
           <a href="#home">Home</a>
           <a href="#rates">Live Rates</a>
+          <a href="#converter">Converter</a>
           <a href="#about">About</a>
         </nav>
       </header>
@@ -55,6 +67,48 @@ function App() {
                 ))}
             </div>
           )}
+        </section>
+
+        {/* ✅ Currency Converter Section */}
+        <section id="converter">
+          <h2>💱 Currency Converter</h2>
+          <div className="converter-box">
+            <div className="inputs">
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="Amount"
+              />
+              <select
+                value={fromCurrency}
+                onChange={(e) => setFromCurrency(e.target.value)}
+              >
+                {Object.keys(rates).map((cur) => (
+                  <option key={cur} value={cur}>
+                    {cur}
+                  </option>
+                ))}
+              </select>
+              <span>➡️</span>
+              <select
+                value={toCurrency}
+                onChange={(e) => setToCurrency(e.target.value)}
+              >
+                {Object.keys(rates).map((cur) => (
+                  <option key={cur} value={cur}>
+                    {cur}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button onClick={convertCurrency}>Convert</button>
+            {converted && (
+              <p className="result">
+                {amount} {fromCurrency} = {converted} {toCurrency}
+              </p>
+            )}
+          </div>
         </section>
 
         <section id="about">
