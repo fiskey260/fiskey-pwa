@@ -1,86 +1,63 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
 
 function App() {
-  // For Download App Button
-  const [deferredPrompt, setDeferredPrompt] = React.useState(null);
+  const [amount, setAmount] = useState('');
+  const [from, setFrom] = useState('USD');
+  const [to, setTo] = useState('EUR');
+  const [result, setResult] = useState(null);
 
-  React.useEffect(() => {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    });
-  }, []);
-
-  const handleInstallClick = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
-    }
+  const handleConvert = () => {
+    const rates = { USD: 1, EUR: 0.92, GBP: 0.81 };
+    const converted = (amount * (rates[to] / rates[from])).toFixed(2);
+    setResult(`${amount} ${from} = ${converted} ${to}`);
   };
 
   return (
-    <div>
-      <header className="navbar">
-        <h1>FiskeyTrade</h1>
+    <>
+      <nav className="navbar">
+        <h1>Fiskey PWA</h1>
         <nav>
-          <a href="#rates">Rates</a>
-          <a href="#converter">Converter</a>
-          <a href="#trading">Trading</a>
+          <a href="#">Home</a>
+          <a href="#">Trading</a>
+          <a href="#">Rates</a>
         </nav>
-      </header>
+      </nav>
 
       <main>
-        <section id="rates">
-          <h2>Forex Rates</h2>
-          <div className="rates-grid">
-            <div className="rate-card"><strong>USD/EUR</strong><p>1.07</p></div>
-            <div className="rate-card"><strong>GBP/USD</strong><p>1.22</p></div>
-          </div>
-        </section>
+        <h2>Welcome to Fiskey PWA 🚀</h2>
+        <p>Your Progressive Web App is running perfectly!</p>
 
-        <section id="converter">
-          <h2>Currency Converter</h2>
-          <div className="converter-box">
-            <div className="inputs">
-              <input type="number" placeholder="Amount" />
-              <select>
-                <option>USD</option>
-                <option>EUR</option>
-              </select>
-              <button>Convert</button>
-            </div>
-            <div className="result">Result: --</div>
+        <div className="converter-box">
+          <div className="inputs">
+            <input
+              type="number"
+              placeholder="Amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <select value={from} onChange={(e) => setFrom(e.target.value)}>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+            <select value={to} onChange={(e) => setTo(e.target.value)}>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+            <button onClick={handleConvert}>Convert</button>
           </div>
-        </section>
+          {result && <div className="result">{result}</div>}
+        </div>
 
-        <section id="trading">
-          <h2>Trading Panel</h2>
-          <div className="trade-grid">
-            <div>
-              <div className="balance-card">Balance: $1000</div>
-              <div className="order-card">
-                <div className="inputs">
-                  <input placeholder="Amount" />
-                  <select><option>Buy</option><option>Sell</option></select>
-                  <button className="primary">Place Order</button>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="positions-card">Open Positions</div>
-              <div className="history-card">Trade History</div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {deferredPrompt && (
-        <button className="install-fab" onClick={handleInstallClick}>
+        <button
+          className="install-fab"
+          onClick={() => alert('Install PWA via browser prompt')}
+        >
           Download App
         </button>
-      )}
-    </div>
+      </main>
+    </>
   );
 }
 
