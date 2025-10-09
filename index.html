@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- PWA manifest and service worker -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#0d9488" />
+    <!-- ✅ PWA Manifest and Service Worker -->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#0d9488" />
+    <link rel="manifest" href="/manifest.json" />
+
     <title>Fiskey PWA</title>
+
+    <!-- ✅ Register Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js');
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registered successfully'))
+            .catch((err) => console.log('Service Worker registration failed:', err));
         });
       }
     </script>
