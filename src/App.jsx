@@ -1,77 +1,37 @@
-// src/App.jsx
 import React, { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import "./App.css";
 
 function App() {
+  const [rates, setRates] = useState({});
   const [amount, setAmount] = useState("");
-  const [from, setFrom] = useState("USD");
-  const [to, setTo] = useState("EUR");
-  const [result, setResult] = useState(null);
+  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [toCurrency, setToCurrency] = useState("EUR");
+  const [converted, setConverted] = useState(null);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [isInstalled, setIsInstalled] = useState(false);
 
-  // Capture PWA install prompt
   useEffect(() => {
-    const handler = (e) => {
+    fetch("https://api.exchangerate.host/latest?base=USD")
+      .then((res) => res.json())
+      .then((data) => setRates(data.rates))
+      .catch((err) => console.error(err));
+
+    window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
-    };
-    window.addEventListener("beforeinstallprompt", handler);
-
-    window.addEventListener("appinstalled", () => {
-      setIsInstalled(true);
     });
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handler);
-    };
   }, []);
 
-  const handleInstall = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === "accepted") setIsInstalled(true);
-      setDeferredPrompt(null);
+  const convert = () => {
+    if (amount && rates[toCurrency]) {
+      setConverted((amount * rates[toCurrency]).toFixed(2));
     }
   };
 
-  const convertCurrency = () => {
-    const rates = { USD: 1, EUR: 0.93, GBP: 0.82 };
-    const converted = (amount / rates[from]) * rates[to];
-    setResult(converted.toFixed(2));
-  };
-
-  const chartData = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    datasets: [
-      {
-        label: "Trading Price",
-        data: [120, 130, 125, 140, 135, 145, 150],
-        borderColor: "#0d9488",
-        backgroundColor: "rgba(14, 203, 129, 0.2)",
-      },
-    ],
+  const handleInstall = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
+    }
   };
 
   return (
@@ -88,92 +48,77 @@ function App() {
 
       {/* Main */}
       <main>
-        <section id="rates">
-          <h2>Exchange Rates</h2>
-          <div className="rates-grid">
-            <div className="rate-card">
-              <strong>USD</strong> 1.00
-            </div>
-            <div className="rate-card">
-              <strong>EUR</strong> 0.93
-            </div>
-            <div className="rate-card">
-              <strong>GBP</strong> 0.82
-            </div>
-          </div>
-        </section>
+        <h2 id="rates">Currency Rates</h2>
+        <div className="rates-grid">
+          {Object.keys(rates)
+            .slice(0, 10)
+            .map((cur) => (
+              <div className="rate-card" key={cur}>
+                <strong>{cur}</strong>
+                <span>{rates[cur].toFixed(2)}</span>
+              </div>
+            ))}
+        </div>
 
-        <section id="converter" className="converter-box">
-          <h2>Currency Converter</h2>
+        <h2 id="converter">Currency Converter</h2>
+        <div className="converter-box">
           <div className="inputs">
             <input
               type="number"
-              placeholder="Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
+              placeholder="Amount"
             />
-            <select value={from} onChange={(e) => setFrom(e.target.value)}>
+            <select value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
+              <option value="JPY">JPY</option>
             </select>
-            <select value={to} onChange={(e) => setTo(e.target.value)}>
+            <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
+              <option value="JPY">JPY</option>
             </select>
-            <button onClick={convertCurrency}>Convert</button>
+            <button className="primary" onClick={convert}>
+              Convert
+            </button>
           </div>
-          {result && <div className="result">{result}</div>}
-        </section>
+          {converted && <div className="result">{converted}</div>}
+        </div>
 
-        <section id="trade" className="trade-grid">
-          {/* Left column */}
+        <h2 id="trade">Trading Dashboard</h2>
+        <div className="trade-grid">
           <div>
-            <div className="balance-card">
-              <h3>Balance</h3>
-              <p>$10,000</p>
-            </div>
+            <div className="balance-card">Balance: $10,000</div>
             <div className="positions-card">
-              <h3>Open Positions</h3>
+              <h3>Positions</h3>
               <div className="position-row">
-                <span>EUR/USD</span>
-                <span>+50</span>
-                <button className="close-btn">Close</button>
+                BTC/USD <span>+1.2%</span> <button className="close-btn">Close</button>
               </div>
             </div>
             <div className="history-card">
               <h3>History</h3>
-              <div className="position-row">
-                <span>GBP/USD</span>
-                <span>-20</span>
-              </div>
+              <div className="position-row">EUR/USD +0.5%</div>
             </div>
           </div>
-
-          {/* Right column: order card */}
           <div className="order-card">
-            <h3>Place Order</h3>
+            <h3>New Order</h3>
             <div className="inputs">
               <select>
                 <option>Buy</option>
                 <option>Sell</option>
               </select>
               <input type="number" placeholder="Amount" />
-              <button className="primary">Submit</button>
+              <button className="primary">Execute</button>
             </div>
           </div>
-        </section>
-
-        {/* Chart */}
-        <section className="chart-box">
-          <h2>Market Chart</h2>
-          <Line data={chartData} />
-        </section>
+        </div>
       </main>
 
       {/* Floating Install Button */}
-      {!isInstalled && (
+      {deferredPrompt && (
         <button className="install-fab" onClick={handleInstall}>
           Download App
         </button>
