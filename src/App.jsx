@@ -1,76 +1,96 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-export default function App() {
-  const [rates, setRates] = useState({
-    USD: 1.0,
-    EUR: 0.92,
-    GBP: 0.81,
-    JPY: 150.1,
-  });
+function App() {
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showInstall, setShowInstall] = useState(false);
   const [amount, setAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("EUR");
+  const [toCurrency, setToCurrency] = useState("KES");
   const [result, setResult] = useState("");
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [showInstallButton, setShowInstallButton] = useState(false);
 
-  // 💱 Convert currency
-  const convert = () => {
-    const rate = rates[toCurrency] / rates[fromCurrency];
-    setResult((amount * rate).toFixed(2));
-  };
-
-  // 📲 Handle PWA install prompt
+  // 📱 PWA Install logic
   useEffect(() => {
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      setShowInstallButton(true);
+      setShowInstall(true);
     };
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    };
+    return () =>
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt
+      );
   }, []);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
     deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
-    if (choice.outcome === "accepted") {
-      console.log("✅ App installed successfully!");
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === "accepted") {
+      console.log("PWA installed successfully!");
     }
     setDeferredPrompt(null);
-    setShowInstallButton(false);
+    setShowInstall(false);
+  };
+
+  // 💱 Simple conversion logic
+  const handleConvert = () => {
+    if (amount === "" || isNaN(amount)) {
+      setResult("Please enter a valid amount");
+      return;
+    }
+
+    const rates = {
+      USD: 1,
+      KES: 156,
+      EUR: 0.93,
+      GBP: 0.79,
+    };
+
+    const fromRate = rates[fromCurrency];
+    const toRate = rates[toCurrency];
+    const converted = ((amount / fromRate) * toRate).toFixed(2);
+    setResult(`${amount} ${fromCurrency} = ${converted} ${toCurrency}`);
+  };
+
+  // 📦 Direct app download link (APK or ZIP)
+  const handleDownloadClick = () => {
+    const downloadUrl =
+      "https://github.com/fiskey260/fiskey-pwa/releases/latest/download/fiskey-pwa.apk"; // 🟢 Replace with your real APK or ZIP link
+    window.open(downloadUrl, "_blank");
   };
 
   return (
-    <div>
-      {/* 🧭 Navbar */}
+    <div className="App">
       <header className="navbar">
-        <h1>Fiskey Trade</h1>
+        <h1>Fiskey Forex</h1>
         <nav>
-          <a href="#">Home</a>
-          <a href="#">Markets</a>
-          <a href="#">Portfolio</a>
-          <a href="#">Settings</a>
+          <a href="#rates">Rates</a>
+          <a href="#convert">Convert</a>
+          <a href="#chart">Chart</a>
         </nav>
       </header>
 
       <main>
-        <h2>🌍 Live Forex Rates</h2>
-        <div className="rates-grid">
-          {Object.keys(rates).map((currency) => (
-            <div className="rate-card" key={currency}>
-              <strong>{currency}</strong>${rates[currency]}
+        <section id="rates">
+          <h2>Live Forex Rates</h2>
+          <div className="rates-grid">
+            <div className="rate-card">
+              <strong>USD/KES</strong> 156.00
             </div>
-          ))}
-        </div>
+            <div className="rate-card">
+              <strong>EUR/USD</strong> 1.07
+            </div>
+            <div className="rate-card">
+              <strong>GBP/USD</strong> 1.26
+            </div>
+          </div>
+        </section>
 
-        {/* 💱 Currency Converter */}
-        <div className="converter-box">
+        <section id="convert" className="converter-box">
           <h2>Currency Converter</h2>
           <div className="inputs">
             <input
@@ -83,35 +103,45 @@ export default function App() {
               value={fromCurrency}
               onChange={(e) => setFromCurrency(e.target.value)}
             >
-              {Object.keys(rates).map((cur) => (
-                <option key={cur}>{cur}</option>
-              ))}
+              <option value="USD">USD</option>
+              <option value="KES">KES</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
             </select>
-            <span>➡</span>
+            <span>➡️</span>
             <select
               value={toCurrency}
               onChange={(e) => setToCurrency(e.target.value)}
             >
-              {Object.keys(rates).map((cur) => (
-                <option key={cur}>{cur}</option>
-              ))}
+              <option value="USD">USD</option>
+              <option value="KES">KES</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
             </select>
-            <button onClick={convert}>Convert</button>
+            <button onClick={handleConvert}>Convert</button>
           </div>
-          {result && (
-            <p className="result">
-              {amount} {fromCurrency} = {result} {toCurrency}
-            </p>
-          )}
-        </div>
+          <div className="result">{result}</div>
+        </section>
+
+        <section id="chart" className="chart-box">
+          <h2>Market Overview</h2>
+          <p>📈 Chart data loading soon...</p>
+        </section>
       </main>
 
-      {/* 📲 Floating Download Button */}
-      {showInstallButton && (
-        <button className="install-fab" onClick={handleInstallClick}>
-          📲 Install App
+      {/* 📲 Floating Action Buttons */}
+      <div className="fab-container">
+        {showInstall && (
+          <button className="install-fab" onClick={handleInstallClick}>
+            📲 Install App
+          </button>
+        )}
+        <button className="download-fab" onClick={handleDownloadClick}>
+          ⬇️ Download App
         </button>
-      )}
+      </div>
     </div>
   );
 }
+
+export default App;
