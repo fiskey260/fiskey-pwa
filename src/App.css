@@ -130,4 +130,62 @@ p {
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-                             }
+                             }/* Trading UI additions */
+.trade-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: start;
+}
+
+.balance-card, .order-card, .positions-card, .history-card {
+  background: #0b1220;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+}
+
+.order-card .inputs {
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.order-card input, .order-card select {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #0f172a;
+  color: #fff;
+}
+
+.primary {
+  background: #0d9488;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.position-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  background:#071122;
+  padding:8px;
+  border-radius:6px;
+  margin-bottom:8px;
+}
+
+.close-btn {
+  background:#ef4444;
+  color:white;
+  padding:6px 8px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  }
