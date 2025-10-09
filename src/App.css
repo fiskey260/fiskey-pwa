@@ -67,4 +67,59 @@ p {
   display: block;
   font-size: 1.2rem;
   color: #0d9488;
-  }
+}
+
+/* Currency Converter */
+.converter-box {
+  background-color: #1e293b;
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.converter-box .inputs {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.converter-box input,
+.converter-box select {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #0f172a;
+  color: white;
+  font-size: 1rem;
+  min-width: 100px;
+  text-align: center;
+}
+
+.converter-box button {
+  background-color: #0d9488;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.converter-box button:hover {
+  background-color: #14b8a6;
+  transform: scale(1.05);
+}
+
+.converter-box .result {
+  font-size: 1.2rem;
+  color: #14b8a6;
+  margin-top: 1rem;
+}
