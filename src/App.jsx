@@ -1,172 +1,92 @@
-import { useEffect, useState } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-} from "recharts";
+// src/App.jsx
+import React, { useState } from "react";
 import "./App.css";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 function App() {
-  const [rates, setRates] = useState({});
-  const [loading, setLoading] = useState(true);
   const [amount, setAmount] = useState(1);
-  const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("KES");
-  const [converted, setConverted] = useState(null);
-  const [chartData, setChartData] = useState([]);
+  const [from, setFrom] = useState("USD");
+  const [to, setTo] = useState("KES");
+  const [result, setResult] = useState(null);
 
-  // Fetch base rates
-  useEffect(() => {
-    async function fetchRates() {
-      try {
-        const res = await fetch("https://open.er-api.com/v6/latest/USD");
-        const data = await res.json();
-        setRates(data.rates);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching forex rates:", error);
-        setLoading(false);
-      }
-    }
-    fetchRates();
-  }, []);
+  // Dummy data for chart (can be connected to real API later)
+  const chartData = [
+    { date: "Mon", rate: 156 },
+    { date: "Tue", rate: 158 },
+    { date: "Wed", rate: 157 },
+    { date: "Thu", rate: 160 },
+    { date: "Fri", rate: 162 },
+  ];
 
-  // Fetch USD/KES trend (mocked historical data)
-  useEffect(() => {
-    async function fetchChart() {
-      try {
-        const res = await fetch("https://open.er-api.com/v6/latest/USD");
-        const data = await res.json();
-        const rate = data.rates.KES;
-        // Generate mock trend data
-        const history = Array.from({ length: 10 }).map((_, i) => ({
-          day: `Day ${i + 1}`,
-          rate: (rate * (1 + (Math.random() - 0.5) / 50)).toFixed(2),
-        }));
-        setChartData(history);
-      } catch (error) {
-        console.error("Error fetching chart data:", error);
-      }
-    }
-    fetchChart();
-  }, []);
-
-  const convertCurrency = () => {
-    if (!rates[fromCurrency] || !rates[toCurrency]) return;
-    const usdValue = amount / rates[fromCurrency];
-    const targetValue = usdValue * rates[toCurrency];
-    setConverted(targetValue.toFixed(2));
+  const handleConvert = () => {
+    // Example static rates — you can replace this with real API later
+    const rates = {
+      USD: 1,
+      KES: 156.5,
+      EUR: 0.92,
+      GBP: 0.79,
+    };
+    const converted = (amount / rates[from]) * rates[to];
+    setResult(`${converted.toFixed(2)} ${to}`);
   };
 
   return (
-    <div className="app-container">
-      {/* ✅ Navigation Bar */}
+    <>
       <header className="navbar">
-        <h1>💹 Fiskey Forex App</h1>
+        <h1>💹 Fiskey Forex</h1>
         <nav>
-          <a href="#home">Home</a>
-          <a href="#rates">Live Rates</a>
-          <a href="#converter">Converter</a>
-          <a href="#chart">Chart</a>
-          <a href="#about">About</a>
+          <a href="#">Home</a>
+          <a href="#">Converter</a>
+          <a href="#">Rates</a>
         </nav>
       </header>
 
       <main>
-        <section id="home">
-          <h2>Welcome, Trader 👋</h2>
-          <p>Stay ahead with real-time forex insights and updates.</p>
-        </section>
+        <h2>🌍 Live Forex Dashboard</h2>
+        <p>Track and convert global currencies in real-time.</p>
 
-        <section id="rates">
-          <h2>🌍 Live Forex Rates (USD base)</h2>
-          {loading ? (
-            <p>Loading rates...</p>
-          ) : (
-            <div className="rates-grid">
-              {Object.entries(rates)
-                .slice(0, 10)
-                .map(([currency, value]) => (
-                  <div key={currency} className="rate-card">
-                    <strong>{currency}</strong>
-                    <span>{value.toFixed(2)}</span>
-                  </div>
-                ))}
-            </div>
-          )}
-        </section>
-
-        {/* ✅ Currency Converter */}
-        <section id="converter">
-          <h2>💱 Currency Converter</h2>
-          <div className="converter-box">
-            <div className="inputs">
-              <input
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="Amount"
-              />
-              <select
-                value={fromCurrency}
-                onChange={(e) => setFromCurrency(e.target.value)}
-              >
-                {Object.keys(rates).map((cur) => (
-                  <option key={cur} value={cur}>
-                    {cur}
-                  </option>
-                ))}
-              </select>
-              <span>➡️</span>
-              <select
-                value={toCurrency}
-                onChange={(e) => setToCurrency(e.target.value)}
-              >
-                {Object.keys(rates).map((cur) => (
-                  <option key={cur} value={cur}>
-                    {cur}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button onClick={convertCurrency}>Convert</button>
-            {converted && (
-              <p className="result">
-                {amount} {fromCurrency} = {converted} {toCurrency}
-              </p>
-            )}
+        {/* Currency Converter */}
+        <div className="converter-box">
+          <h3>Currency Converter</h3>
+          <div className="inputs">
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <select value={from} onChange={(e) => setFrom(e.target.value)}>
+              <option value="USD">USD</option>
+              <option value="KES">KES</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+            <span>➡️</span>
+            <select value={to} onChange={(e) => setTo(e.target.value)}>
+              <option value="USD">USD</option>
+              <option value="KES">KES</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
           </div>
-        </section>
+          <button onClick={handleConvert}>Convert</button>
+          {result && <div className="result">Result: {result}</div>}
+        </div>
 
-        {/* ✅ Live Chart */}
-        <section id="chart">
-          <h2>📊 USD → KES Trend</h2>
-          <div className="chart-box">
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" stroke="#14b8a6" />
-                <YAxis stroke="#14b8a6" />
-                <Tooltip />
-                <Line type="monotone" dataKey="rate" stroke="#0d9488" strokeWidth={3} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </section>
-
-        <section id="about">
-          <h2>About Fiskey</h2>
-          <p>
-            Fiskey Forex App helps you track currency movements in real-time
-            and make smarter trading decisions — anytime, anywhere.
-          </p>
-        </section>
+        {/* Chart Section */}
+        <div className="chart-box">
+          <h3>Weekly USD to KES Trend</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="rate" stroke="#0d9488" strokeWidth={2} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </main>
-    </div>
+    </>
   );
 }
 
