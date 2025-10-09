@@ -1,24 +1,21 @@
-/* ===========================
-   Global Styles & Scaling Fix
-=========================== */
+/* src/App.css */
+
+/* Fix zoom/scaling on all devices */
 html, body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  margin: 0;
-  padding: 0;
   touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
   zoom: 1;
   transform: scale(1);
+  margin: 0;
   font-family: 'Poppins', sans-serif;
   background-color: #0f172a;
   color: #f8fafc;
 }
 
-/* ===========================
-   Navbar
-=========================== */
+/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -26,6 +23,7 @@ html, body {
   padding: 1rem 2rem;
   background-color: #0d9488;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  flex-wrap: wrap;
 }
 
 .navbar h1 {
@@ -43,11 +41,9 @@ html, body {
   text-decoration: underline;
 }
 
-/* ===========================
-   Main Section
-=========================== */
+/* Main Section */
 main {
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
 }
 
@@ -61,9 +57,7 @@ p {
   opacity: 0.9;
 }
 
-/* ===========================
-   Forex Rates Grid
-=========================== */
+/* Rates Grid */
 .rates-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -84,9 +78,7 @@ p {
   color: #0d9488;
 }
 
-/* ===========================
-   Currency Converter
-=========================== */
+/* Currency Converter */
 .converter-box {
   background-color: #1e293b;
   margin-top: 2rem;
@@ -97,8 +89,10 @@ p {
   align-items: center;
   gap: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  max-width: 100%;
-  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .converter-box .inputs {
@@ -143,9 +137,7 @@ p {
   margin-top: 1rem;
 }
 
-/* ===========================
-   Chart Section
-=========================== */
+/* 📊 Chart Section */
 .chart-box {
   background-color: #1e293b;
   margin-top: 2rem;
@@ -153,45 +145,43 @@ p {
   border-radius: 0.75rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
 }
 
-/* ===========================
-   Trading Dashboard UI
-=========================== */
+/* Trading UI additions */
 .trade-grid {
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 1rem;
   margin-top: 1rem;
   align-items: start;
-  max-width: 100%;
-  box-sizing: border-box;
 }
 
-.balance-card, .order-card, .positions-card, .history-card {
+.balance-card,
+.order-card,
+.positions-card,
+.history-card {
   background: #0b1220;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
 }
 
 .order-card .inputs {
-  display:flex;
-  gap:8px;
-  align-items:center;
-  flex-wrap: wrap;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
-.order-card input, .order-card select {
+.order-card input,
+.order-card select {
   padding: 8px;
   border-radius: 6px;
   border: none;
   background: #0f172a;
   color: #fff;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .primary {
@@ -203,27 +193,38 @@ p {
   cursor: pointer;
 }
 
-.primary:hover {
-  background: #14b8a6;
-  transform: scale(1.03);
-}
-
 .position-row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  background:#071122;
-  padding:8px;
-  border-radius:6px;
-  margin-bottom:8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  background: #071122;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
 }
 
 .close-btn {
-  background:#ef4444;
-  color:white;
-  padding:6px 8px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
+  background: #ef4444;
+  color: white;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ✅ Responsive fixes */
+@media (max-width: 768px) {
+  .trade-grid {
+    grid-template-columns: 1fr;
   }
+
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .navbar nav a {
+    margin: 0.5rem;
+  }
+   }
