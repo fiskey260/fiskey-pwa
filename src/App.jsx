@@ -1,4 +1,13 @@
 import { useEffect, useState } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
 import "./App.css";
 
 function App() {
@@ -8,7 +17,9 @@ function App() {
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("KES");
   const [converted, setConverted] = useState(null);
+  const [chartData, setChartData] = useState([]);
 
+  // Fetch base rates
   useEffect(() => {
     async function fetchRates() {
       try {
@@ -22,6 +33,26 @@ function App() {
       }
     }
     fetchRates();
+  }, []);
+
+  // Fetch USD/KES trend (mocked historical data)
+  useEffect(() => {
+    async function fetchChart() {
+      try {
+        const res = await fetch("https://open.er-api.com/v6/latest/USD");
+        const data = await res.json();
+        const rate = data.rates.KES;
+        // Generate mock trend data
+        const history = Array.from({ length: 10 }).map((_, i) => ({
+          day: `Day ${i + 1}`,
+          rate: (rate * (1 + (Math.random() - 0.5) / 50)).toFixed(2),
+        }));
+        setChartData(history);
+      } catch (error) {
+        console.error("Error fetching chart data:", error);
+      }
+    }
+    fetchChart();
   }, []);
 
   const convertCurrency = () => {
@@ -40,11 +71,11 @@ function App() {
           <a href="#home">Home</a>
           <a href="#rates">Live Rates</a>
           <a href="#converter">Converter</a>
+          <a href="#chart">Chart</a>
           <a href="#about">About</a>
         </nav>
       </header>
 
-      {/* ✅ Main Section */}
       <main>
         <section id="home">
           <h2>Welcome, Trader 👋</h2>
@@ -69,7 +100,7 @@ function App() {
           )}
         </section>
 
-        {/* ✅ Currency Converter Section */}
+        {/* ✅ Currency Converter */}
         <section id="converter">
           <h2>💱 Currency Converter</h2>
           <div className="converter-box">
@@ -108,6 +139,22 @@ function App() {
                 {amount} {fromCurrency} = {converted} {toCurrency}
               </p>
             )}
+          </div>
+        </section>
+
+        {/* ✅ Live Chart */}
+        <section id="chart">
+          <h2>📊 USD → KES Trend</h2>
+          <div className="chart-box">
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day" stroke="#14b8a6" />
+                <YAxis stroke="#14b8a6" />
+                <Tooltip />
+                <Line type="monotone" dataKey="rate" stroke="#0d9488" strokeWidth={3} />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </section>
 
