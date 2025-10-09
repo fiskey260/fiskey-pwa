@@ -123,3 +123,11 @@ p {
   color: #14b8a6;
   margin-top: 1rem;
 }
+/* 📊 Chart Section */
+.chart-box {
+  background-color: #1e293b;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                             }
