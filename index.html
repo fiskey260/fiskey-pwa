@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Progressive Web App meta -->
+    <!-- PWA manifest and service worker -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d9488" />
     <meta charset="UTF-8" />
+
+    <!-- ✅ Improved mobile scaling -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <meta name="theme-color" content="#0d9488" />
 
-    <title>Fiskey Trading PWA</title>
+    <title>Fiskey Trading App</title>
 
-    <!-- Manifest + Service Worker -->
-    <link rel="manifest" href="/manifest.json" />
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -20,16 +21,9 @@
         });
       }
     </script>
-
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
-      </html>
+</html>
