@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import { showInstallPrompt } from "./pwaInstall";
 import "./App.css";
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
     { name: "Apr", value: 110 }
   ];
 
-  // PayPal Hosted Button
+  // ✅ PayPal Hosted Button
   useEffect(() => {
     if (window.paypal) {
       window.paypal.HostedButtons({
@@ -38,7 +39,7 @@ function App() {
     }
   }, []);
 
-  // Fade-in animation for sections
+  // ✅ Fade-in animation for sections
   useEffect(() => {
     const sections = document.querySelectorAll(".fade-in-section");
     const observer = new IntersectionObserver(
@@ -54,6 +55,15 @@ function App() {
     );
     sections.forEach(section => observer.observe(section));
     return () => observer.disconnect();
+  }, []);
+
+  // ✅ Setup install button visibility
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      const installBtn = document.querySelector(".install-fab");
+      if (installBtn) installBtn.style.display = "block";
+    });
   }, []);
 
   return (
@@ -120,7 +130,27 @@ function App() {
         </div>
       </main>
 
-      <button className="install-fab">Download App</button>
+      {/* ✅ Install Floating Button */}
+      <button
+        className="install-fab"
+        style={{
+          display: "none",
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          backgroundColor: "#0d9488",
+          color: "#fff",
+          border: "none",
+          borderRadius: "50px",
+          padding: "12px 20px",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+          cursor: "pointer",
+          fontSize: "16px",
+        }}
+        onClick={showInstallPrompt}
+      >
+        📲 Install App
+      </button>
     </div>
   );
 }
