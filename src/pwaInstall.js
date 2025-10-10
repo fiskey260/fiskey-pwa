@@ -13,9 +13,12 @@ window.addEventListener("beforeinstallprompt", (e) => {
   if (installBtn) {
     installBtn.style.display = "block";
 
-    installBtn.addEventListener("click", async () => {
+    // Add click listener only once
+    const handleClick = async () => {
       await showInstallPrompt();
-    });
+      installBtn.removeEventListener("click", handleClick);
+    };
+    installBtn.addEventListener("click", handleClick);
   }
 
   console.log("✅ Install prompt captured and ready.");
