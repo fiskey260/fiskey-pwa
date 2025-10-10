@@ -7,6 +7,14 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
+      outDir: "dist",
+      strategies: "generateSW",
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"]
+      },
+      devOptions: {
+        enabled: true
+      },
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
         name: "Fiskey PWA",
