@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d9488" />
+
+    <title>FiskeyTrade - Forex Trading & Currency Converter</title>
+    <meta name="description" content="FiskeyTrade - Real-time Forex exchange rates, currency converter, and trading charts for all users. Support via PayPal.">
+    <meta name="keywords" content="Forex, Currency Exchange, Trading, Currency Converter, Forex Charts, FiskeyTrade">
+    <meta name="author" content="Fiskey254">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="FiskeyTrade - Forex Trading App">
+    <meta property="og:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal.">
+    <meta property="og:image" content="/icons/icon-512x512.png">
+    <meta property="og:url" content="https://fiskey254.onrender.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FiskeyTrade - Forex Trading App">
+    <meta name="twitter:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal.">
+    <meta name="twitter:image" content="/icons/icon-512x512.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FiskeyTrade",
+      "url": "https://fiskey254.onrender.com",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHXLFVZ634"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KHXLFVZ634', { send_page_view: true });
+    </script>
+
+    <!-- PayPal SDK for Hosted Buttons -->
+    <script src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+
+    <style>
+      /* Floating install button */
+      .install-fab {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #0d9488;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        display: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+      }
+      .install-fab:hover {
+        background-color: #0b7c73;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- Install Button -->
+    <button class="install-fab" id="install-button">Install App 📱</button>
+
+    <!-- PayPal fallback container -->
+    <div id="paypal-container-6E5V3XTHK92NQ" style="display:none;"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("paypal-container-6E5V3XTHK92NQ");
+        if (window.paypal && container) {
+          paypal.HostedButtons({
+            hostedButtonId: "6E5V3XTHK92NQ"
+          }).render("#paypal-container-6E5V3XTHK92NQ");
+        }
+      });
+    </script>
+
+    <!-- Main App -->
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((reg) => console.log("✅ Service Worker registered:", reg.scope))
+            .catch((err) => console.error("❌ Service Worker registration failed:", err));
+        });
+      }
+    </script>
+
+    <!-- PWA Install Script -->
+    <script type="module">
+      import { showInstallPrompt } from "/src/pwaInstall.js";
+
+      let deferredPrompt;
+      const installBtn = document.getElementById("install-button");
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = "block";
+        console.log("✅ Install prompt captured and ready.");
+      });
+
+      installBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) return alert("Install prompt not ready yet.");
+        deferredPrompt.prompt();
+        const choice = await deferredPrompt.userChoice;
+        console.log(choice.outcome === "accepted" ? "✅ Installed" : "❌ Dismissed");
+        deferredPrompt = null;
+        installBtn.style.display = "none";
+      });
+    </script>
+  </body>
+      </html>
