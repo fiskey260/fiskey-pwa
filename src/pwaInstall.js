@@ -4,14 +4,18 @@ let deferredPrompt;
 
 // Listen for the beforeinstallprompt event
 window.addEventListener("beforeinstallprompt", (e) => {
-  // Prevent the default mini-infobar
+  // Prevent the default mini-infobar from showing
   e.preventDefault();
   deferredPrompt = e;
 
-  // Show the floating install button
+  // Show the floating install button when prompt is ready
   const installBtn = document.querySelector(".install-fab");
   if (installBtn) {
     installBtn.style.display = "block";
+
+    installBtn.addEventListener("click", async () => {
+      await showInstallPrompt();
+    });
   }
 
   console.log("✅ Install prompt captured and ready.");
@@ -24,15 +28,27 @@ export const showInstallPrompt = async () => {
     return;
   }
 
+  // Show the prompt
   deferredPrompt.prompt();
 
-  const choice = await deferredPrompt.userChoice;
-  if (choice.outcome === "accepted") {
-    console.log("✅ PWA install accepted by user.");
+  // Wait for user's choice
+  const { outcome } = await deferredPrompt.userChoice;
+
+  if (outcome === "accepted") {
+    console.log("✅ User accepted the PWA installation.");
   } else {
-    console.log("❌ PWA install dismissed by user.");
+    console.log("❌ User dismissed the PWA installation.");
   }
 
-  // Clear the saved prompt so it cannot be reused
+  // Reset the prompt so it can’t be used again
   deferredPrompt = null;
+
+  // Hide the floating button after interaction
+  const installBtn = document.querySelector(".install-fab");
+  if (installBtn) installBtn.style.display = "none";
 };
+
+// Log successful installation
+window.addEventListener("appinstalled", () => {
+  console.log("🎉 FiskeyTrade PWA installed successfully!");
+});
