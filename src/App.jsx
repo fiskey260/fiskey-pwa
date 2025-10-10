@@ -63,11 +63,13 @@ function App() {
       e.preventDefault();
       const installBtn = document.querySelector(".install-fab");
       if (installBtn) installBtn.style.display = "block";
+      window.deferredPrompt = e; // Store for later trigger
     });
   }, []);
 
   return (
     <div>
+      {/* ✅ Navbar */}
       <nav className="navbar">
         <h1>FiskeyTrade</h1>
         <div>
@@ -77,6 +79,7 @@ function App() {
         </div>
       </nav>
 
+      {/* ✅ Main Content */}
       <main>
         <h2>Exchange Rates</h2>
         <div className="rates-grid fade-in-section">
@@ -108,6 +111,7 @@ function App() {
           <div className="result">Result: {converted.toFixed(2)}</div>
         </div>
 
+        {/* ✅ Chart Section */}
         <div className="chart-box fade-in-section">
           <h2>Trading Chart</h2>
           <LineChart width={600} height={300} data={chartData}>
@@ -120,6 +124,7 @@ function App() {
           </LineChart>
         </div>
 
+        {/* ✅ PayPal Section */}
         <div className="paypal-box fade-in-section">
           <h2>Support FiskeyTrade</h2>
           <p>Your support helps us keep providing real-time Forex tools. Any contribution is appreciated!</p>
@@ -146,6 +151,7 @@ function App() {
           boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
           cursor: "pointer",
           fontSize: "16px",
+          zIndex: "999"
         }}
         onClick={showInstallPrompt}
       >
