@@ -3,72 +3,124 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ✅ Manifest & Theme -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0d9488" />
 
     <title>FiskeyTrade - Forex Trading & Currency Converter</title>
-    <meta name="description" content="FiskeyTrade - Real-time Forex exchange rates, currency converter, and trading charts for all users. Support via PayPal.">
-    <meta name="keywords" content="Forex, Currency Exchange, Trading, Currency Converter, Forex Charts, FiskeyTrade">
-    <meta name="author" content="Fiskey254">
+    <meta
+      name="description"
+      content="FiskeyTrade - Real-time Forex exchange rates, currency converter, and trading charts for all users. Support via PayPal."
+    />
+    <meta
+      name="keywords"
+      content="Forex, Currency Exchange, Trading, Currency Converter, Forex Charts, FiskeyTrade"
+    />
+    <meta name="author" content="Fiskey254" />
 
-    <!-- Open Graph / Social Sharing -->
-    <meta property="og:title" content="FiskeyTrade - Forex Trading App">
-    <meta property="og:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal.">
-    <meta property="og:image" content="/icons/icon-512x512.png">
-    <meta property="og:url" content="https://fiskey254.onrender.com">
-    <meta property="og:type" content="website">
+    <!-- ✅ Social Metadata -->
+    <meta property="og:title" content="FiskeyTrade - Forex Trading App" />
+    <meta property="og:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal." />
+    <meta property="og:image" content="/icons/icon-512x512.png" />
+    <meta property="og:url" content="https://fiskey254.onrender.com" />
+    <meta property="og:type" content="website" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FiskeyTrade - Forex Trading App">
-    <meta name="twitter:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal.">
-    <meta name="twitter:image" content="/icons/icon-512x512.png">
+    <!-- ✅ Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FiskeyTrade - Forex Trading App" />
+    <meta name="twitter:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal." />
+    <meta name="twitter:image" content="/icons/icon-512x512.png" />
 
-    <!-- Structured Data (JSON-LD) -->
+    <!-- ✅ Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "FiskeyTrade",
-      "url": "https://fiskey254.onrender.com",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FiskeyTrade",
+        "url": "https://fiskey254.onrender.com",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
       }
-    }
     </script>
 
-    <!-- Google Analytics 4 -->
+    <!-- ✅ Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHXLFVZ634"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-KHXLFVZ634', { send_page_view: true });
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-KHXLFVZ634", { send_page_view: true });
     </script>
 
-    <!-- PayPal SDK for Hosted Buttons -->
+    <!-- ✅ PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+
+    <!-- ✅ Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png" />
+    <link rel="shortcut icon" href="/icons/icon-192x192.png" type="image/png" />
   </head>
+
   <body>
     <div id="root"></div>
 
-    <!-- PayPal fallback container -->
-    <div id="paypal-container-6E5V3XTHK92NQ" style="display:none;"></div>
+    <!-- ✅ PayPal Fallback -->
+    <div id="paypal-container-6E5V3XTHK92NQ" style="display: none;"></div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("paypal-container-6E5V3XTHK92NQ");
         if (window.paypal && container) {
           paypal.HostedButtons({
-            hostedButtonId: "6E5V3XTHK92NQ"
+            hostedButtonId: "6E5V3XTHK92NQ",
           }).render("#paypal-container-6E5V3XTHK92NQ");
         }
       });
     </script>
 
+    <!-- ✅ Floating Install Button -->
+    <button
+      class="install-fab"
+      style="
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #0d9488;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        padding: 12px 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        cursor: pointer;
+        font-size: 16px;
+        z-index: 9999;
+      "
+    >
+      📲 Install App
+    </button>
+
+    <!-- ✅ Vite Entry -->
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- ✅ PWA Service Worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) => console.log("✅ Service Worker registered:", reg.scope))
+            .catch((err) => console.error("❌ Service Worker registration failed:", err));
+        });
+      }
+    </script>
   </body>
   </html>
