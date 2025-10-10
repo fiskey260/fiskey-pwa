@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://fiskey254.onrender.com/sitemap.xml
