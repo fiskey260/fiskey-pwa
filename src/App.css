@@ -118,6 +118,7 @@ p { font-size: 1rem; opacity: 0.9; }
   max-width: 100%;
   width: 100%;
   box-sizing: border-box;
+  overflow-x: auto;
 }
 
 /* Trading UI */
@@ -178,8 +179,22 @@ p { font-size: 1rem; opacity: 0.9; }
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
   color: #fff;
   text-align: center;
+  position: relative;
 }
 
+/* Fade-in Animation */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* PayPal Heading & Text */
 .paypal-box h2 {
   color: #0d9488;
   margin-bottom: 15px;
@@ -192,14 +207,57 @@ p { font-size: 1rem; opacity: 0.9; }
   line-height: 1.5;
 }
 
-/* Responsive Chart and Layout */
-.chart-box {
-  overflow-x: auto;
-  margin-bottom: 30px;
+/* Tooltip */
+.paypal-tooltip-wrapper {
+  display: inline-block;
+  position: relative;
 }
 
+.paypal-tooltip-wrapper .paypal-tooltip {
+  visibility: hidden;
+  background-color: #0d9488;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.paypal-tooltip-wrapper:hover .paypal-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* PayPal Button Hover Bounce/Pulse */
+.paypal-tooltip-wrapper #paypal-button-container {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.paypal-tooltip-wrapper:hover #paypal-button-container {
+  animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .trade-grid { grid-template-columns: 1fr; }
   .navbar { flex-direction: column; text-align: center; }
   .navbar nav a { margin: 0.5rem; }
+  .paypal-box { padding: 20px 15px; }
+  .paypal-box h2 { font-size: 1.5rem; }
+  .paypal-box p { font-size: 0.95rem; }
   }
