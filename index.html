@@ -15,7 +15,7 @@
     <meta property="og:title" content="FiskeyTrade - Forex Trading App">
     <meta property="og:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal.">
     <meta property="og:image" content="/icons/icon-512x512.png">
-    <meta property="og:url" content="https://your-deployed-url.com">
+    <meta property="og:url" content="https://fiskey254.onrender.com">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card -->
@@ -30,7 +30,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "FiskeyTrade",
-      "url": "https://your-deployed-url.com",
+      "url": "https://fiskey254.onrender.com",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "All",
       "offers": {
@@ -41,18 +41,24 @@
     }
     </script>
 
-    <!-- PayPal SDK for Hosted Buttons -->
-    <script 
-      src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHXLFVZ634"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KHXLFVZ634', { send_page_view: true });
     </script>
+
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
   </head>
   <body>
     <div id="root"></div>
 
-    <!-- PayPal Hosted Button Section (Optional, for non-React fallback) -->
+    <!-- PayPal fallback container -->
     <div id="paypal-container-6E5V3XTHK92NQ" style="display:none;"></div>
     <script>
-      // Fallback: Render hosted button if React fails
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("paypal-container-6E5V3XTHK92NQ");
         if (window.paypal && container) {
