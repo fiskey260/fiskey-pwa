@@ -15,19 +15,20 @@
   <body>
     <div id="root"></div>
 
-    <!-- PayPal Hosted Button Container -->
-    <div id="paypal-container-6E5V3XTHK92NQ"></div>
+    <!-- PayPal Hosted Button Section (Optional, for non-React fallback) -->
+    <div id="paypal-container-6E5V3XTHK92NQ" style="display:none;"></div>
     <script>
-      // Ensure PayPal SDK is loaded
-      if (window.paypal) {
-        paypal.HostedButtons({
-          hostedButtonId: "6E5V3XTHK92NQ"
-        }).render("#paypal-container-6E5V3XTHK92NQ");
-      } else {
-        console.error("PayPal SDK not loaded");
-      }
+      // Fallback: Render hosted button if React fails
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("paypal-container-6E5V3XTHK92NQ");
+        if (window.paypal && container) {
+          paypal.HostedButtons({
+            hostedButtonId: "6E5V3XTHK92NQ"
+          }).render("#paypal-container-6E5V3XTHK92NQ");
+        }
+      });
     </script>
 
     <script type="module" src="/src/main.jsx"></script>
   </body>
-  </html>
+                            </html>
