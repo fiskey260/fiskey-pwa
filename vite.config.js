@@ -7,19 +7,16 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: [
-        "favicon.ico",
-        "robots.txt",
-        "apple-touch-icon.png"
-      ],
+      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
         name: "Fiskey PWA",
         short_name: "Fiskey",
         description: "Forex trading PWA by Fiskey254",
-        start_url: "/",
-        display: "standalone",
+        theme_color: "#0d6efd",
         background_color: "#ffffff",
-        theme_color: "#1a1a1a",
+        display: "standalone",
+        scope: "/",
+        start_url: "/",
         icons: [
           {
             src: "/icons/icon-192x192.png",
