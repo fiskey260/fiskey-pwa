@@ -1,4 +1,11 @@
+# robots.txt for FiskeyTrade PWA
 User-agent: *
 Allow: /
 
+# Prevent crawling of sensitive or unnecessary directories
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /private/
+
+# Link to sitemap
 Sitemap: https://fiskey254.onrender.com/sitemap.xml
