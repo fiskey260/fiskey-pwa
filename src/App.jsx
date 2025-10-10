@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 function App() {
@@ -25,6 +25,19 @@ function App() {
     { name: "Mar", value: 90 },
     { name: "Apr", value: 110 }
   ];
+
+  // -----------------------------
+  // PayPal Hosted Button Setup
+  // -----------------------------
+  useEffect(() => {
+    if (window.paypal) {
+      window.paypal.HostedButtons({
+        hostedButtonId: "6E5V3XTHK92NQ"
+      }).render("#paypal-button-container");
+    } else {
+      console.error("PayPal SDK not loaded");
+    }
+  }, []);
 
   return (
     <div>
@@ -74,6 +87,14 @@ function App() {
             <Line type="monotone" dataKey="value" stroke="#0d9488" />
           </LineChart>
         </div>
+
+        {/* ---------------- PayPal Button Section ---------------- */}
+        <div className="paypal-box">
+          <h2>Support FiskeyTrade</h2>
+          <p>If you like the app, you can donate via PayPal:</p>
+          <div id="paypal-button-container"></div>
+        </div>
+
       </main>
 
       <button className="install-fab">Download App</button>
