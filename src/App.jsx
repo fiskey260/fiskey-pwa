@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import "./App.css"; // make sure your CSS file is imported
+import "./App.css"; // Make sure your CSS file is imported
 
 function App() {
   const [amount, setAmount] = useState("");
@@ -36,6 +36,22 @@ function App() {
     } else {
       console.error("PayPal SDK not loaded");
     }
+  }, []);
+
+  // Fade-in animation on scroll
+  useEffect(() => {
+    const section = document.querySelector(".fade-in-section");
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          section.classList.add("visible");
+          observer.unobserve(section);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (section) observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -88,10 +104,13 @@ function App() {
         </div>
 
         {/* Professional PayPal Section */}
-        <div className="paypal-box">
+        <div className="paypal-box fade-in-section">
           <h2>Support FiskeyTrade</h2>
           <p>Your support helps us keep providing real-time Forex tools. Any contribution is appreciated!</p>
-          <div id="paypal-button-container"></div>
+          <div className="paypal-tooltip-wrapper">
+            <div id="paypal-button-container"></div>
+            <span className="paypal-tooltip">Safe & Secure PayPal Donation</span>
+          </div>
         </div>
 
       </main>
