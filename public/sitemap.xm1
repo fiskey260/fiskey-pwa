@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">  
+  <url>  
+    <loc>https://fiskey254.onrender.com/</loc>  
+    <priority>1.0</priority>  
+    <changefreq>daily</changefreq>  
+  </url>  
+  <url>  
+    <loc>https://fiskey254.onrender.com/#rates</loc>  
+    <priority>0.8</priority>  
+    <changefreq>daily</changefreq>  
+  </url>  
+  <url>  
+    <loc>https://fiskey254.onrender.com/#converter</loc>  
+    <priority>0.8</priority>  
+    <changefreq>daily</changefreq>  
+  </url>  
+  <url>  
+    <loc>https://fiskey254.onrender.com/#trading</loc>  
+    <priority>0.8</priority>  
+    <changefreq>daily</changefreq>  
+  </url>  
+</urlset>
