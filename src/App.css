@@ -168,7 +168,36 @@ p { font-size: 1rem; opacity: 0.9; }
 }
 .install-fab:hover { background-color: #14b8a6; transform: scale(1.07); }
 
-/* Responsive */
+/* PayPal Donation Section */
+.paypal-box {
+  margin: 40px auto;
+  padding: 30px 20px;
+  max-width: 700px;
+  background-color: #0f172a;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  color: #fff;
+  text-align: center;
+}
+
+.paypal-box h2 {
+  color: #0d9488;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.paypal-box p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Responsive Chart and Layout */
+.chart-box {
+  overflow-x: auto;
+  margin-bottom: 30px;
+}
+
 @media (max-width: 768px) {
   .trade-grid { grid-template-columns: 1fr; }
   .navbar { flex-direction: column; text-align: center; }
