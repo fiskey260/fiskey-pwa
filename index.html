@@ -6,9 +6,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FiskeyTrade PWA</title>
+
+    <!-- PayPal SDK for Hosted Buttons -->
+    <script 
+      src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD">
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- PayPal Hosted Button Container -->
+    <div id="paypal-container-6E5V3XTHK92NQ"></div>
+    <script>
+      // Ensure PayPal SDK is loaded
+      if (window.paypal) {
+        paypal.HostedButtons({
+          hostedButtonId: "6E5V3XTHK92NQ"
+        }).render("#paypal-container-6E5V3XTHK92NQ");
+      } else {
+        console.error("PayPal SDK not loaded");
+      }
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
   </html>
