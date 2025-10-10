@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import "./App.css"; // make sure your CSS file is imported
 
 function App() {
   const [amount, setAmount] = useState("");
@@ -26,9 +27,7 @@ function App() {
     { name: "Apr", value: 110 }
   ];
 
-  // -----------------------------
-  // PayPal Hosted Button Setup
-  // -----------------------------
+  // PayPal Hosted Button
   useEffect(() => {
     if (window.paypal) {
       window.paypal.HostedButtons({
@@ -88,10 +87,10 @@ function App() {
           </LineChart>
         </div>
 
-        {/* ---------------- PayPal Button Section ---------------- */}
+        {/* Professional PayPal Section */}
         <div className="paypal-box">
           <h2>Support FiskeyTrade</h2>
-          <p>If you like the app, you can donate via PayPal:</p>
+          <p>Your support helps us keep providing real-time Forex tools. Any contribution is appreciated!</p>
           <div id="paypal-button-container"></div>
         </div>
 
