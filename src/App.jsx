@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import "./App.css"; // Make sure your CSS file is imported
+import "./App.css";
 
 function App() {
   const [amount, setAmount] = useState("");
@@ -38,19 +38,21 @@ function App() {
     }
   }, []);
 
-  // Fade-in animation on scroll
+  // Fade-in animation for sections
   useEffect(() => {
-    const section = document.querySelector(".fade-in-section");
+    const sections = document.querySelectorAll(".fade-in-section");
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          section.classList.add("visible");
-          observer.unobserve(section);
-        }
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
       },
       { threshold: 0.1 }
     );
-    if (section) observer.observe(section);
+    sections.forEach(section => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
@@ -67,7 +69,7 @@ function App() {
 
       <main>
         <h2>Exchange Rates</h2>
-        <div className="rates-grid">
+        <div className="rates-grid fade-in-section">
           {rates.map(r => (
             <div className="rate-card" key={r.currency}>
               <strong>{r.currency}</strong>
@@ -76,10 +78,15 @@ function App() {
           ))}
         </div>
 
-        <div className="converter-box">
+        <div className="converter-box fade-in-section">
           <h2>Currency Converter</h2>
           <div className="inputs">
-            <input type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="Amount" />
+            <input
+              type="number"
+              value={amount}
+              onChange={e => setAmount(e.target.value)}
+              placeholder="Amount"
+            />
             <select value={fromCurrency} onChange={e => setFromCurrency(e.target.value)}>
               {rates.map(r => <option key={r.currency}>{r.currency}</option>)}
             </select>
@@ -91,7 +98,7 @@ function App() {
           <div className="result">Result: {converted.toFixed(2)}</div>
         </div>
 
-        <div className="chart-box">
+        <div className="chart-box fade-in-section">
           <h2>Trading Chart</h2>
           <LineChart width={600} height={300} data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -103,7 +110,6 @@ function App() {
           </LineChart>
         </div>
 
-        {/* Professional PayPal Section */}
         <div className="paypal-box fade-in-section">
           <h2>Support FiskeyTrade</h2>
           <p>Your support helps us keep providing real-time Forex tools. Any contribution is appreciated!</p>
@@ -112,7 +118,6 @@ function App() {
             <span className="paypal-tooltip">Safe & Secure PayPal Donation</span>
           </div>
         </div>
-
       </main>
 
       <button className="install-fab">Download App</button>
