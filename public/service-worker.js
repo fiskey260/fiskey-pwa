@@ -1,7 +1,8 @@
-// ✅ FiskeyTrade Service Worker (v1.1)
+// ✅ FiskeyTrade Service Worker (v1.2)
 
-const CACHE_NAME = "fiskey-cache-v1";
+const CACHE_NAME = "fiskeytrade-cache-v1";
 const OFFLINE_URL = "/offline.html";
+
 const FILES_TO_CACHE = [
   "/",
   "/index.html",
@@ -20,7 +21,7 @@ self.addEventListener("install", (event) => {
       return cache.addAll(FILES_TO_CACHE);
     })
   );
-  self.skipWaiting(); // Activate new SW immediately
+  self.skipWaiting();
 });
 
 // ✅ Activate: Remove old caches
@@ -31,14 +32,11 @@ self.addEventListener("activate", (event) => {
       Promise.all(
         cacheNames
           .filter((name) => name !== CACHE_NAME)
-          .map((name) => {
-            console.log("🗑️ Deleting old cache:", name);
-            return caches.delete(name);
-          })
+          .map((name) => caches.delete(name))
       )
     )
   );
-  self.clients.claim(); // Control open pages immediately
+  self.clients.claim();
 });
 
 // ✅ Fetch: Cache-first, then network fallback
@@ -48,30 +46,40 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Serve from cache
         return cachedResponse;
       }
 
-      // Fetch from network and cache dynamically
       return fetch(event.request)
         .then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200) {
+          if (
+            !networkResponse ||
+            networkResponse.status !== 200 ||
+            networkResponse.type === "opaque"
+          ) {
             return networkResponse;
           }
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
+
+          const clonedResponse = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, clonedResponse);
           });
+
+          return networkResponse;
         })
-        .catch(() => caches.match(OFFLINE_URL)); // Fallback offline page
+        .catch(() => caches.match(OFFLINE_URL));
     })
   );
 });
 
-// ✅ Listen for skipWaiting message (for updates)
+// ✅ Handle manual skipWaiting trigger
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     console.log("🔄 New version ready, activating...");
     self.skipWaiting();
   }
+});
+
+// ✅ Listen for PWA install event (for logging)
+self.addEventListener("appinstalled", () => {
+  console.log("🎉 FiskeyTrade PWA installed successfully!");
 });
