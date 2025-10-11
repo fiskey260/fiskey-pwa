@@ -1,236 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Manifest & Theme -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#0d9488" />
+  <!-- Manifest & Theme -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d9488" />
 
-    <title>FiskeyTrade - Forex Trading & Currency Converter</title>
-    <meta
-      name="description"
-      content="FiskeyTrade - Real-time Forex exchange rates, currency converter, and trading charts for all users. Support via PayPal."
-    />
-    <meta name="author" content="Fiskey254" />
+  <title>FiskeyTrade - Forex Trading & Currency Converter</title>
+  <meta name="description" content="FiskeyTrade - Real-time Forex exchange rates, currency converter, and trading charts for all users. Support via PayPal." />
+  <meta name="author" content="Fiskey254" />
 
-    <!-- Social Metadata -->
-    <meta property="og:title" content="FiskeyTrade - Forex Trading App" />
-    <meta property="og:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal." />
-    <meta property="og:image" content="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
-    <meta property="og:url" content="https://fiskey254.onrender.com" />
-    <meta property="og:type" content="website" />
+  <!-- Social Metadata -->
+  <meta property="og:title" content="FiskeyTrade - Forex Trading App" />
+  <meta property="og:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
+  <meta property="og:url" content="https://fiskey254.onrender.com" />
+  <meta property="og:type" content="website" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="FiskeyTrade - Forex Trading App" />
-    <meta name="twitter:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal." />
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FiskeyTrade - Forex Trading App" />
+  <meta name="twitter:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal." />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
 
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "FiskeyTrade",
-        "url": "https://fiskey254.onrender.com",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "All",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        }
-      }
-    </script>
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "FiskeyTrade",
+    "url": "https://fiskey254.onrender.com",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHXLFVZ634"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag("js", new Date());
-      gtag("config", "G-KHXLFVZ634", { send_page_view: true });
-    </script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHXLFVZ634"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-KHXLFVZ634", { send_page_view: true });
+  </script>
 
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 
-    <!-- Icons -->
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
-    <link rel="shortcut icon" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" type="image/png" />
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" type="image/png" />
 
-    <style>
-      /* Floating install button */
-      .install-fab {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #0d9488;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        padding: 12px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        display: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        z-index: 9999;
-      }
-      .install-fab:hover { background-color: #0b7c73; }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/src/app.css" />
+</head>
 
-      /* Social media sidebar */
-      .social-sidebar {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      .social-sidebar img { width: 32px; height: 32px; }
+<body>
+  <div id="root"></div>
 
-      /* Sign-up modal */
-      #signup-modal {
-        display: none;
-        position: fixed;
-        top:0; left:0;
-        width:100%; height:100%;
-        background-color: rgba(0,0,0,0.6);
-        justify-content:center;
-        align-items:center;
-        z-index: 9999;
-      }
-      #signup-modal-content {
-        background:white;
-        padding:20px;
-        border-radius:10px;
-        width:90%;
-        max-width:400px;
-        text-align:center;
-      }
-      #signup-modal input[type="email"] {
-        width: 80%;
-        padding: 8px;
-        margin-bottom:10px;
-      }
-      #signup-modal button {
-        padding: 10px 20px;
-        background-color:#0d9488;
-        color:white;
-        border:none;
-        border-radius:5px;
-        cursor:pointer;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div id="root"></div>
-
-    <!-- Social Media Sidebar -->
-    <div class="social-sidebar">
-      <a href="https://facebook.com/fiskey254" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"/>
-      </a>
-      <a href="https://twitter.com/fiskey254" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"/>
-      </a>
-      <a href="https://instagram.com/fiskey254" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"/>
-      </a>
+  <!-- Sign-Up Modal -->
+  <div id="signup-modal">
+    <div id="signup-modal-content">
+      <h2>Join FiskeyTrade</h2>
+      <p>Sign up to get updates and exclusive trading tips!</p>
+      <input type="email" id="signup-email" placeholder="Enter your email" />
+      <br/>
+      <button class="signup-submit" onclick="subscribeUser()">Sign Up</button>
+      <br/><br/>
+      <button class="signup-close" onclick="closeSignupModal()">Close</button>
     </div>
+  </div>
 
-    <!-- Sign-Up Modal -->
-    <div id="signup-modal">
-      <div id="signup-modal-content">
-        <h2>Join FiskeyTrade</h2>
-        <p>Sign up to get updates and exclusive trading tips!</p>
-        <input type="email" placeholder="Enter your email" />
-        <br/>
-        <button onclick="alert('Subscribed!')">Sign Up</button>
-        <br/><br/>
-        <button onclick="document.getElementById('signup-modal').style.display='none'" style="background:none; border:none; color:#0d9488; cursor:pointer;">Close</button>
-      </div>
-    </div>
+  <!-- Sign-Up Button -->
+  <button id="signup-button" onclick="openSignupModal()" class="install-fab" style="bottom: 80px;">
+    ✉️ Sign Up
+  </button>
 
-    <!-- Sign-Up Button -->
-    <button onclick="document.getElementById('signup-modal').style.display='flex'" style="position:fixed; bottom:80px; right:20px; background:#0d9488; color:white; border:none; border-radius:50px; padding:12px 20px; z-index:9999; cursor:pointer;">
-      ✉️ Sign Up
-    </button>
+  <!-- Floating Install Button -->
+  <button class="install-fab">📲 Install App</button>
 
-    <!-- Blog Section -->
-    <section id="blog" style="padding: 40px; max-width: 800px; margin:auto;">
-      <h2>Latest Blog Posts</h2>
-      <article style="margin-bottom: 30px;">
-        <h3>Understanding Forex Trading</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">Read more</a></p>
-      </article>
-      <article style="margin-bottom: 30px;">
-        <h3>Top 5 Currency Pairs in 2025</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">Read more</a></p>
-      </article>
-    </section>
+  <!-- Social Links at Bottom -->
+  <div class="social-links-bottom" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:15px; z-index:9999;">
+    <a href="https://twitter.com/fiskey254" target="_blank">🐦</a>
+    <a href="https://facebook.com/fiskey254" target="_blank">📘</a>
+    <a href="https://instagram.com/fiskey254" target="_blank">📸</a>
+    <a href="https://linkedin.com/in/fiskey254" target="_blank">💼</a>
+  </div>
 
-    <!-- PayPal fallback -->
-    <div id="paypal-container-6E5V3XTHK92NQ" style="display: none;"></div>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const container = document.getElementById("paypal-container-6E5V3XTHK92NQ");
-        if (window.paypal && container) {
-          paypal.HostedButtons({
-            hostedButtonId: "6E5V3XTHK92NQ",
-          }).render("#paypal-container-6E5V3XTHK92NQ");
-        }
+  <!-- Blog Section -->
+  <section id="blog" style="padding: 40px; max-width: 800px; margin:auto;">
+    <h2>Latest Blog Posts</h2>
+    <article style="margin-bottom: 30px;">
+      <h3>Understanding Forex Trading</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">Read more</a></p>
+    </article>
+    <article style="margin-bottom: 30px;">
+      <h3>Top 5 Currency Pairs in 2025</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">Read more</a></p>
+    </article>
+  </section>
+
+  <!-- PayPal fallback -->
+  <div id="paypal-container-6E5V3XTHK92NQ"></div>
+
+  <!-- Vite Entry -->
+  <script type="module" src="/src/main.jsx"></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then((reg) => console.log("✅ Service Worker registered:", reg.scope))
+          .catch((err) => console.error("❌ Service Worker registration failed:", err));
       });
-    </script>
+    }
+  </script>
 
-    <!-- Floating Install Button -->
-    <button class="install-fab">📲 Install App</button>
-
-    <!-- Vite Entry -->
-    <script type="module" src="/src/main.jsx"></script>
-
-    <!-- Service Worker Registration -->
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then((reg) => console.log("✅ Service Worker registered:", reg.scope))
-            .catch((err) => console.error("❌ Service Worker registration failed:", err));
-        });
+  <!-- PayPal Buttons -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("paypal-container-6E5V3XTHK92NQ");
+      if (window.paypal && container) {
+        paypal.HostedButtons({ hostedButtonId: "6E5V3XTHK92NQ" }).render("#paypal-container-6E5V3XTHK92NQ");
       }
-    </script>
+    });
+  </script>
 
-    <!-- PWA Install Handling -->
-    <script type="module">
-      let deferredPrompt;
-      const installBtn = document.querySelector(".install-fab");
+  <!-- Sign-Up Modal Scripts -->
+  <script>
+    function openSignupModal() {
+      document.getElementById('signup-modal').style.display = 'flex';
+    }
 
-      window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = "block";
-        console.log("✅ Install prompt captured and ready.");
-      });
+    function closeSignupModal() {
+      document.getElementById('signup-modal').style.display = 'none';
+    }
 
-      installBtn.addEventListener("click", async () => {
-        if (!deferredPrompt) return alert("Install prompt not ready yet.");
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(outcome === "accepted" ? "✅ Installed" : "❌ Dismissed");
-        deferredPrompt = null;
-        installBtn.style.display = "none";
-      });
+    function subscribeUser() {
+      const email = document.getElementById('signup-email').value;
+      if(email) {
+        alert(`✅ Subscribed with: ${email}`);
+        closeSignupModal();
+      } else {
+        alert('⚠️ Please enter a valid email.');
+      }
+    }
+  </script>
 
-      window.addEventListener("appinstalled", () => {
-        console.log("🎉 FiskeyTrade PWA installed successfully!");
-      });
-    </script>
-  </body>
-      </html>
+  <!-- PWA Install Handling -->
+  <script type="module">
+    let deferredPrompt;
+    const installBtn = document.querySelectorAll('.install-fab')[1]; // second button (Install)
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      console.log(choice.outcome === "accepted" ? "✅ Installed" : "❌ Dismissed");
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
+
+    window.addEventListener('appinstalled', () => console.log("🎉 FiskeyTrade PWA installed successfully!"));
+  </script>
+</body>
+    </html>
