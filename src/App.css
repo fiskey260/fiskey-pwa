@@ -1,4 +1,6 @@
-/* Fix zoom/scaling on all devices */
+/* ----------------------------- */
+/* Global Styles & Reset */
+/* ----------------------------- */
 html, body {
   width: 100%;
   height: 100%;
@@ -13,7 +15,9 @@ html, body {
   color: #f8fafc;
 }
 
+/* ----------------------------- */
 /* Navbar */
+/* ----------------------------- */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -35,12 +39,16 @@ html, body {
 
 .navbar nav a:hover { text-decoration: underline; }
 
+/* ----------------------------- */
 /* Main Section */
+/* ----------------------------- */
 main { padding: 1.5rem; text-align: center; }
 h2 { color: #14b8a6; margin-top: 2rem; }
 p { font-size: 1rem; opacity: 0.9; }
 
+/* ----------------------------- */
 /* Rates Grid */
+/* ----------------------------- */
 .rates-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -57,7 +65,9 @@ p { font-size: 1rem; opacity: 0.9; }
 
 .rate-card strong { display: block; font-size: 1.2rem; color: #0d9488; }
 
+/* ----------------------------- */
 /* Currency Converter */
+/* ----------------------------- */
 .converter-box {
   background-color: #1e293b;
   margin-top: 2rem;
@@ -108,7 +118,9 @@ p { font-size: 1rem; opacity: 0.9; }
 
 .converter-box .result { font-size: 1.2rem; color: #14b8a6; margin-top: 1rem; }
 
+/* ----------------------------- */
 /* Chart Section */
+/* ----------------------------- */
 .chart-box {
   background-color: #1e293b;
   margin-top: 2rem;
@@ -121,7 +133,9 @@ p { font-size: 1rem; opacity: 0.9; }
   overflow-x: auto;
 }
 
+/* ----------------------------- */
 /* Trading UI */
+/* ----------------------------- */
 .trade-grid {
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -150,7 +164,9 @@ p { font-size: 1rem; opacity: 0.9; }
 
 .close-btn { background:#ef4444; color:white; padding:6px 8px; border:none; border-radius:6px; cursor:pointer; }
 
-/* Download App FAB */
+/* ----------------------------- */
+/* Floating Install Button */
+/* ----------------------------- */
 .install-fab {
   position: fixed;
   bottom: 20px;
@@ -169,7 +185,9 @@ p { font-size: 1rem; opacity: 0.9; }
 }
 .install-fab:hover { background-color: #14b8a6; transform: scale(1.07); }
 
+/* ----------------------------- */
 /* PayPal Donation Section */
+/* ----------------------------- */
 .paypal-box {
   margin: 40px auto;
   padding: 30px 20px;
@@ -182,7 +200,6 @@ p { font-size: 1rem; opacity: 0.9; }
   position: relative;
 }
 
-/* Fade-in Animation */
 .fade-in-section {
   opacity: 0;
   transform: translateY(30px);
@@ -194,25 +211,10 @@ p { font-size: 1rem; opacity: 0.9; }
   transform: translateY(0);
 }
 
-/* PayPal Heading & Text */
-.paypal-box h2 {
-  color: #0d9488;
-  margin-bottom: 15px;
-  font-size: 1.8rem;
-}
+.paypal-box h2 { color: #0d9488; margin-bottom: 15px; font-size: 1.8rem; }
+.paypal-box p { font-size: 1rem; margin-bottom: 20px; line-height: 1.5; }
 
-.paypal-box p {
-  font-size: 1rem;
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-/* Tooltip */
-.paypal-tooltip-wrapper {
-  display: inline-block;
-  position: relative;
-}
-
+.paypal-tooltip-wrapper { display: inline-block; position: relative; }
 .paypal-tooltip-wrapper .paypal-tooltip {
   visibility: hidden;
   background-color: #0d9488;
@@ -230,28 +232,127 @@ p { font-size: 1rem; opacity: 0.9; }
   white-space: nowrap;
   z-index: 10;
 }
+.paypal-tooltip-wrapper:hover .paypal-tooltip { visibility: visible; opacity: 1; }
+.paypal-tooltip-wrapper #paypal-button-container { display: inline-block; transition: transform 0.3s ease; }
+.paypal-tooltip-wrapper:hover #paypal-button-container { animation: pulse 0.6s ease-in-out; }
 
-.paypal-tooltip-wrapper:hover .paypal-tooltip {
-  visibility: visible;
-  opacity: 1;
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+/* ----------------------------- */
+/* Sign-Up Modal Styling */
+/* ----------------------------- */
+#signup-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.4s ease forwards;
 }
 
-/* PayPal Button Hover Bounce/Pulse */
-.paypal-tooltip-wrapper #paypal-button-container {
-  display: inline-block;
-  transition: transform 0.3s ease;
+#signup-modal-content {
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  padding: 30px 25px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  transform: scale(0.95);
+  opacity: 0;
+  animation: scaleIn 0.4s ease forwards;
 }
 
-.paypal-tooltip-wrapper:hover #paypal-button-container {
-  animation: pulse 0.6s ease-in-out;
+#signup-modal h2 { font-size: 2rem; margin-bottom: 15px; }
+#signup-modal p { font-size: 1rem; margin-bottom: 20px; line-height: 1.4; }
+
+#signup-modal input[type="email"] {
+  width: 85%;
+  padding: 12px 15px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transition: all 0.3s ease;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+#signup-modal input[type="email"]:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
+#signup-modal button.signup-submit {
+  width: 60%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #14b8a6, #0d9488);
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+#signup-modal button.signup-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+#signup-modal button.signup-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: all 0.2s ease;
+}
+
+#signup-modal button.signup-close:hover { color: #d1fae5; }
+
+@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes scaleIn { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+/* ----------------------------- */
+/* Social Links at Bottom */
+/* ----------------------------- */
+.social-links-bottom {
+  position: fixed;
+  bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  z-index: 1000;
+}
+
+.social-links-bottom a {
+  color: #0d9488;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-links-bottom a:hover {
+  transform: scale(1.2);
+  color: #14b8a6;
+}
+
+/* ----------------------------- */
 /* Responsive */
 @media (max-width: 768px) {
   .trade-grid { grid-template-columns: 1fr; }
