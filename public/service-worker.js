@@ -1,6 +1,6 @@
-// ✅ FiskeyTrade Service Worker (v1.2)
+// ✅ FiskeyTrade Service Worker (v1.3)
 
-const CACHE_NAME = "fiskeytrade-cache-v1";
+const CACHE_NAME = "fiskeytrade-cache-v1.3";
 const OFFLINE_URL = "/offline.html";
 
 const FILES_TO_CACHE = [
@@ -66,7 +66,7 @@ self.addEventListener("fetch", (event) => {
 
           return networkResponse;
         })
-        .catch(() => caches.match(OFFLINE_URL));
+        .catch(() => caches.match(OFFLINE_URL))
     })
   );
 });
@@ -82,4 +82,15 @@ self.addEventListener("message", (event) => {
 // ✅ Listen for PWA install event (for logging)
 self.addEventListener("appinstalled", () => {
   console.log("🎉 FiskeyTrade PWA installed successfully!");
+});
+
+// ✅ Optional: Pre-cache dynamic content like blogs or social media icons
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "PRECACHE_URLS") {
+    caches.open(CACHE_NAME).then((cache) => {
+      cache.addAll(event.data.urls).then(() => {
+        console.log("📥 Dynamic URLs pre-cached:", event.data.urls);
+      });
+    });
+  }
 });
