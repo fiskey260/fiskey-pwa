@@ -1,4 +1,4 @@
-// ✅ FiskeyTrade Service Worker (v1.4)
+// ✅ FiskeyTrade Service Worker (v1.4 combined & updated)
 
 const CACHE_NAME = "fiskeytrade-cache-v1.4";
 const OFFLINE_URL = "/offline.html";
@@ -57,6 +57,7 @@ self.addEventListener("fetch", (event) => {
             return networkResponse;
           }
 
+          // Clone response and cache dynamically
           const clonedResponse = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, clonedResponse);
@@ -77,7 +78,7 @@ self.addEventListener("message", (event) => {
   }
 
   // ✅ Optional: Pre-cache dynamic URLs like blogs or social media icons
-  if (event.data && event.data.type === "PRECACHE_URLS") {
+  if (event.data && event.data.type === "PRECACHE_URLS" && Array.isArray(event.data.urls)) {
     caches.open(CACHE_NAME).then((cache) => {
       cache.addAll(event.data.urls).then(() => {
         console.log("📥 Dynamic URLs pre-cached:", event.data.urls);
