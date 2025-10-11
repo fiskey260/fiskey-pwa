@@ -1,15 +1,15 @@
-// ✅ FiskeyTrade Service Worker (v1.3)
+// ✅ FiskeyTrade Service Worker (v1.4)
 
-const CACHE_NAME = "fiskeytrade-cache-v1.3";
+const CACHE_NAME = "fiskeytrade-cache-v1.4";
 const OFFLINE_URL = "/offline.html";
 
 const FILES_TO_CACHE = [
   "/",
   "/index.html",
+  "/offline.html",
   "/manifest.json",
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png",
-  OFFLINE_URL,
 ];
 
 // ✅ Install: Cache app shell and core files
@@ -39,15 +39,13 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// ✅ Fetch: Cache-first, then network fallback
+// ✅ Fetch: Cache-first, network fallback, offline fallback
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
+      if (cachedResponse) return cachedResponse;
 
       return fetch(event.request)
         .then((networkResponse) => {
@@ -66,7 +64,7 @@ self.addEventListener("fetch", (event) => {
 
           return networkResponse;
         })
-        .catch(() => caches.match(OFFLINE_URL))
+        .catch(() => caches.match(OFFLINE_URL)) // Serve offline page if network fails
     })
   );
 });
@@ -77,15 +75,8 @@ self.addEventListener("message", (event) => {
     console.log("🔄 New version ready, activating...");
     self.skipWaiting();
   }
-});
 
-// ✅ Listen for PWA install event (for logging)
-self.addEventListener("appinstalled", () => {
-  console.log("🎉 FiskeyTrade PWA installed successfully!");
-});
-
-// ✅ Optional: Pre-cache dynamic content like blogs or social media icons
-self.addEventListener("message", (event) => {
+  // ✅ Optional: Pre-cache dynamic URLs like blogs or social media icons
   if (event.data && event.data.type === "PRECACHE_URLS") {
     caches.open(CACHE_NAME).then((cache) => {
       cache.addAll(event.data.urls).then(() => {
@@ -93,4 +84,9 @@ self.addEventListener("message", (event) => {
       });
     });
   }
+});
+
+// ✅ Listen for PWA install event (for logging)
+self.addEventListener("appinstalled", () => {
+  console.log("🎉 FiskeyTrade PWA installed successfully!");
 });
