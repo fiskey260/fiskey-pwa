@@ -1,7 +1,7 @@
 {
   "name": "FiskeyTrade",
   "short_name": "FiskeyTrade",
-  "description": "A professional PWA trading app by Fiskey254.",
+  "description": "FiskeyTrade - Real-time Forex exchange rates, currency converter, trading charts, and exclusive trading tips.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -27,5 +27,6 @@
       "platform": "web",
       "url": "https://fiskey254.onrender.com"
     }
-  ]
-    }
+  ],
+  "prefer_related_applications": false
+}
