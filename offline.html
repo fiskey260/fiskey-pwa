@@ -26,19 +26,19 @@
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "FiskeyTrade",
-      "url": "https://fiskey254.onrender.com",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FiskeyTrade",
+        "url": "https://fiskey254.onrender.com",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
       }
-    }
     </script>
 
     <!-- Google Analytics 4 -->
@@ -50,11 +50,11 @@
       gtag('config', 'G-KHXLFVZ634', { send_page_view: true });
     </script>
 
-    <!-- PayPal SDK for Hosted Buttons -->
+    <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 
+    <!-- Floating Install Button Styles -->
     <style>
-      /* Floating install button */
       .install-fab {
         position: fixed;
         bottom: 20px;
@@ -131,6 +131,10 @@
         console.log(choice.outcome === "accepted" ? "✅ Installed" : "❌ Dismissed");
         deferredPrompt = null;
         installBtn.style.display = "none";
+      });
+
+      window.addEventListener("appinstalled", () => {
+        console.log("🎉 FiskeyTrade PWA installed successfully!");
       });
     </script>
   </body>
