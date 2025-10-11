@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FiskeyTrade PWA Test</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d9488" />
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f0f4f3; }
+    h1 { color: #0d9488; }
+    .log { margin: 5px 0; padding: 5px; background: #fff; border: 1px solid #ccc; border-radius: 4px; }
+    .install-fab { display: none; position: fixed; bottom: 20px; right: 20px; background-color: #0d9488; color: #fff; border: none; border-radius: 50px; padding: 12px 20px; font-size: 16px; cursor: pointer; z-index: 9999; }
+  </style>
+</head>
+<body>
+  <h1>FiskeyTrade PWA Test</h1>
+  <div id="logs"></div>
+
+  <button class="install-fab" id="install-btn">📲 Install App</button>
+
+  <script>
+    const log = (msg) => {
+      const div = document.createElement("div");
+      div.textContent = msg;
+      div.className = "log";
+      document.getElementById("logs").appendChild(div);
+      console.log(msg);
+    };
+
+    // 1️⃣ Service Worker Test
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => log("✅ Service Worker registered: " + reg.scope))
+        .catch(err => log("❌ Service Worker failed: " + err));
+    } else {
+      log("⚠️ Service Worker not supported");
+    }
+
+    // 2️⃣ Manifest Test
+    fetch('/manifest.json')
+      .then(res => {
+        if (res.ok) log("✅ Manifest found and loaded");
+        else log("❌ Manifest not found: " + res.status);
+        return res.json();
+      })
+      .then(manifest => {
+        if (manifest.icons && manifest.icons.length >= 2) {
+          log("✅ Icons in manifest detected");
+
+          // ✅ Check if icons are reachable
+          manifest.icons.forEach(icon => {
+            const img = new Image();
+            img.src = icon.src;
+            img.onload = () => log(`✅ Icon loaded: ${icon.src}`);
+            img.onerror = () => log(`❌ Icon not found: ${icon.src}`);
+          });
+
+        } else {
+          log("❌ Icons missing in manifest");
+        }
+      })
+      .catch(err => log("❌ Manifest load error: " + err));
+
+    // 3️⃣ Install Prompt Test
+    let deferredPrompt;
+    const installBtn = document.getElementById('install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = "block";
+      log("✅ Install prompt captured and ready");
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return log("⚠️ Install prompt not ready yet");
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      log(choice.outcome === "accepted" ? "✅ User accepted install" : "❌ User dismissed install");
+      deferredPrompt = null;
+      installBtn.style.display = "none";
+    });
+
+    // 4️⃣ Offline Cache Test
+    log("ℹ️ Turn off network and reload to test offline caching");
+  </script>
+</body>
+  </html>
