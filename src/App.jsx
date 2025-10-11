@@ -28,7 +28,7 @@ function App() {
     { name: "Apr", value: 110 }
   ];
 
-  // ✅ PayPal Hosted Button
+  // PayPal Hosted Button
   useEffect(() => {
     if (window.paypal) {
       window.paypal.HostedButtons({
@@ -39,7 +39,7 @@ function App() {
     }
   }, []);
 
-  // ✅ Fade-in animation for sections
+  // Fade-in animation for sections
   useEffect(() => {
     const sections = document.querySelectorAll(".fade-in-section");
     const observer = new IntersectionObserver(
@@ -57,19 +57,9 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  // ✅ Setup install button visibility
-  useEffect(() => {
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      const installBtn = document.querySelector(".install-fab");
-      if (installBtn) installBtn.style.display = "block";
-      window.deferredPrompt = e; // Store for later trigger
-    });
-  }, []);
-
   return (
     <div>
-      {/* ✅ Navbar */}
+      {/* Navbar */}
       <nav className="navbar">
         <h1>FiskeyTrade</h1>
         <div>
@@ -79,7 +69,7 @@ function App() {
         </div>
       </nav>
 
-      {/* ✅ Main Content */}
+      {/* Main Content */}
       <main>
         <h2>Exchange Rates</h2>
         <div className="rates-grid fade-in-section">
@@ -111,7 +101,7 @@ function App() {
           <div className="result">Result: {converted.toFixed(2)}</div>
         </div>
 
-        {/* ✅ Chart Section */}
+        {/* Trading Chart */}
         <div className="chart-box fade-in-section">
           <h2>Trading Chart</h2>
           <LineChart width={600} height={300} data={chartData}>
@@ -124,7 +114,7 @@ function App() {
           </LineChart>
         </div>
 
-        {/* ✅ PayPal Section */}
+        {/* PayPal Section */}
         <div className="paypal-box fade-in-section">
           <h2>Support FiskeyTrade</h2>
           <p>Your support helps us keep providing real-time Forex tools. Any contribution is appreciated!</p>
@@ -135,7 +125,7 @@ function App() {
         </div>
       </main>
 
-      {/* ✅ Install Floating Button */}
+      {/* Install Floating Button */}
       <button
         className="install-fab"
         style={{
