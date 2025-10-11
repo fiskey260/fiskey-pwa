@@ -80,9 +80,7 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         z-index: 9999;
       }
-      .install-fab:hover {
-        background-color: #0b7c73;
-      }
+      .install-fab:hover { background-color: #0b7c73; }
 
       /* Social media sidebar */
       .social-sidebar {
@@ -94,10 +92,7 @@
         flex-direction: column;
         gap: 10px;
       }
-      .social-sidebar img {
-        width: 32px;
-        height: 32px;
-      }
+      .social-sidebar img { width: 32px; height: 32px; }
 
       /* Sign-up modal */
       #signup-modal {
@@ -214,28 +209,3 @@
 
     <!-- PWA Install Handling -->
     <script type="module">
-      let deferredPrompt;
-      const installBtn = document.querySelector(".install-fab");
-
-      window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = "block";
-        console.log("✅ Install prompt captured and ready.");
-      });
-
-      installBtn.addEventListener("click", async () => {
-        if (!deferredPrompt) return alert("Install prompt not ready yet.");
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(outcome === "accepted" ? "✅ Installed" : "❌ Dismissed");
-        deferredPrompt = null;
-        installBtn.style.display = "none";
-      });
-
-      window.addEventListener("appinstalled", () => {
-        console.log("🎉 FiskeyTrade PWA installed successfully!");
-      });
-    </script>
-  </body>
-                                                                                   </html>
