@@ -21,5 +21,11 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://fiskey254.onrender.com"
+    }
   ]
-}
+    }
