@@ -10,12 +10,15 @@
     body { font-family: sans-serif; padding: 20px; background: #f0f4f3; }
     h1 { color: #0d9488; }
     .log { margin: 5px 0; padding: 5px; background: #fff; border: 1px solid #ccc; border-radius: 4px; }
+    .icons-container img { margin: 10px; border: 1px solid #ccc; border-radius: 8px; }
     .install-fab { display: none; position: fixed; bottom: 20px; right: 20px; background-color: #0d9488; color: #fff; border: none; border-radius: 50px; padding: 12px 20px; font-size: 16px; cursor: pointer; z-index: 9999; }
   </style>
 </head>
 <body>
   <h1>FiskeyTrade PWA Test</h1>
   <div id="logs"></div>
+  <h2>Icons Preview</h2>
+  <div class="icons-container" id="icons-container"></div>
 
   <button class="install-fab" id="install-btn">📲 Install App</button>
 
@@ -27,6 +30,8 @@
       document.getElementById("logs").appendChild(div);
       console.log(msg);
     };
+
+    const iconsContainer = document.getElementById("icons-container");
 
     // 1️⃣ Service Worker Test
     if ('serviceWorker' in navigator) {
@@ -48,12 +53,16 @@
         if (manifest.icons && manifest.icons.length >= 2) {
           log("✅ Icons in manifest detected");
 
-          // ✅ Check if icons are reachable
+          // Show icons visually and check load
           manifest.icons.forEach(icon => {
             const img = new Image();
             img.src = icon.src;
+            img.alt = `${icon.sizes} icon`;
+            img.width = parseInt(icon.sizes);
+            img.height = parseInt(icon.sizes);
             img.onload = () => log(`✅ Icon loaded: ${icon.src}`);
             img.onerror = () => log(`❌ Icon not found: ${icon.src}`);
+            iconsContainer.appendChild(img);
           });
 
         } else {
@@ -86,4 +95,4 @@
     log("ℹ️ Turn off network and reload to test offline caching");
   </script>
 </body>
-  </html>
+</html>
