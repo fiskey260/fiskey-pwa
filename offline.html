@@ -6,8 +6,8 @@
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0d9488" />
 
-    <title>FiskeyTrade - Forex Trading & Currency Converter</title>
-    <meta name="description" content="FiskeyTrade - Real-time Forex exchange rates, currency converter, and trading charts for all users. Support via PayPal.">
+    <title>FiskeyTrade Offline</title>
+    <meta name="description" content="FiskeyTrade - You are offline. View cached content or try again later.">
     <meta name="keywords" content="Forex, Currency Exchange, Trading, Currency Converter, Forex Charts, FiskeyTrade">
     <meta name="author" content="Fiskey254">
 
@@ -53,89 +53,89 @@
     <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 
-    <!-- Floating Install Button Styles -->
+    <!-- Styles -->
     <style>
-      .install-fab {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        color: #0d9488;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        text-align: center;
+      }
+      h1 { font-size: 2em; margin-bottom: 0.5em; }
+      p { font-size: 1.1em; margin-bottom: 1.5em; }
+      button {
         background-color: #0d9488;
-        color: white;
+        color: #fff;
         border: none;
         border-radius: 50px;
         padding: 12px 20px;
         font-size: 16px;
         cursor: pointer;
-        display: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        z-index: 9999;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        margin-bottom: 20px;
       }
-      .install-fab:hover {
-        background-color: #0b7c73;
+      button:hover { background-color: #0b7c73; }
+      .social-links a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #0d9488;
+        font-weight: bold;
       }
+      .social-links a:hover { text-decoration: underline; }
     </style>
   </head>
 
   <body>
-    <div id="root"></div>
+    <h1>📴 You are Offline</h1>
+    <p>FiskeyTrade cannot connect to the internet. Access cached content or try again later.</p>
 
-    <!-- Install Button -->
-    <button class="install-fab" id="install-button">Install App 📱</button>
+    <button onclick="location.reload()">🔄 Retry Connection</button>
 
-    <!-- PayPal fallback container -->
-    <div id="paypal-container-6E5V3XTHK92NQ" style="display:none;"></div>
+    <div class="social-links">
+      <p>Follow us:</p>
+      <a href="https://twitter.com/fiskey254" target="_blank">Twitter</a> |
+      <a href="https://facebook.com/fiskey254" target="_blank">Facebook</a> |
+      <a href="https://instagram.com/fiskey254" target="_blank">Instagram</a> |
+      <a href="https://linkedin.com/in/fiskey254" target="_blank">LinkedIn</a>
+    </div>
+
+    <p>Support via PayPal:</p>
+    <div id="paypal-container-offline"></div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const container = document.getElementById("paypal-container-6E5V3XTHK92NQ");
-        if (window.paypal && container) {
+        if (window.paypal) {
           paypal.HostedButtons({
             hostedButtonId: "6E5V3XTHK92NQ"
-          }).render("#paypal-container-6E5V3XTHK92NQ");
+          }).render("#paypal-container-offline");
         }
       });
     </script>
 
-    <!-- Main App -->
-    <script type="module" src="/src/main.jsx"></script>
-
-    <!-- Service Worker Registration -->
+    <!-- Install Button -->
+    <button class="install-fab" id="install-button" style="display:none;">📲 Install App</button>
     <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then((reg) => console.log("✅ Service Worker registered:", reg.scope))
-            .catch((err) => console.error("❌ Service Worker registration failed:", err));
-        });
-      }
-    </script>
-
-    <!-- PWA Install Script -->
-    <script type="module">
-      import { showInstallPrompt } from "/src/pwaInstall.js";
-
       let deferredPrompt;
       const installBtn = document.getElementById("install-button");
-
       window.addEventListener("beforeinstallprompt", (e) => {
         e.preventDefault();
         deferredPrompt = e;
         installBtn.style.display = "block";
-        console.log("✅ Install prompt captured and ready.");
       });
-
       installBtn.addEventListener("click", async () => {
-        if (!deferredPrompt) return alert("Install prompt not ready yet.");
+        if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choice = await deferredPrompt.userChoice;
         console.log(choice.outcome === "accepted" ? "✅ Installed" : "❌ Dismissed");
         deferredPrompt = null;
         installBtn.style.display = "none";
       });
-
-      window.addEventListener("appinstalled", () => {
-        console.log("🎉 FiskeyTrade PWA installed successfully!");
-      });
+      window.addEventListener("appinstalled", () => console.log("🎉 FiskeyTrade PWA installed successfully!"));
     </script>
   </body>
-      </html>
+  </html>
