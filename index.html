@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ✅ Manifest & Theme -->
+    <!-- Manifest & Theme -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0d9488" />
 
@@ -13,26 +13,22 @@
       name="description"
       content="FiskeyTrade - Real-time Forex exchange rates, currency converter, and trading charts for all users. Support via PayPal."
     />
-    <meta
-      name="keywords"
-      content="Forex, Currency Exchange, Trading, Currency Converter, Forex Charts, FiskeyTrade"
-    />
     <meta name="author" content="Fiskey254" />
 
-    <!-- ✅ Social Metadata -->
+    <!-- Social Metadata -->
     <meta property="og:title" content="FiskeyTrade - Forex Trading App" />
     <meta property="og:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal." />
-    <meta property="og:image" content="/icons/icon-512x512.png" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
     <meta property="og:url" content="https://fiskey254.onrender.com" />
     <meta property="og:type" content="website" />
 
-    <!-- ✅ Twitter Card -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="FiskeyTrade - Forex Trading App" />
     <meta name="twitter:description" content="Real-time Forex rates, converter, and trading charts. Support us via PayPal." />
-    <meta name="twitter:image" content="/icons/icon-512x512.png" />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
 
-    <!-- ✅ Structured Data -->
+    <!-- Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -49,31 +45,29 @@
       }
     </script>
 
-    <!-- ✅ Google Analytics -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHXLFVZ634"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
+      function gtag() { dataLayer.push(arguments); }
       gtag("js", new Date());
       gtag("config", "G-KHXLFVZ634", { send_page_view: true });
     </script>
 
-    <!-- ✅ PayPal SDK -->
+    <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=BAA0BOzTBI0jt7xbZfe3EyU85Ne55Drm8zrpZ5QWTZd3W4hEg-ZLCYp-Y36V62IoJusM7PaxxazVCDtXyc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 
-    <!-- ✅ Icons -->
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png" />
-    <link rel="shortcut icon" href="/icons/icon-192x192.png" type="image/png" />
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-512x512.png" />
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/fiskey260/fiskey-pwa/main/public/icon-192x192.png" type="image/png" />
   </head>
 
   <body>
     <div id="root"></div>
 
-    <!-- ✅ PayPal Fallback -->
+    <!-- PayPal fallback -->
     <div id="paypal-container-6E5V3XTHK92NQ" style="display: none;"></div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -86,7 +80,7 @@
       });
     </script>
 
-    <!-- ✅ Floating Install Button -->
+    <!-- Floating Install Button -->
     <button
       class="install-fab"
       style="
@@ -108,10 +102,10 @@
       📲 Install App
     </button>
 
-    <!-- ✅ Vite Entry -->
+    <!-- Vite Entry -->
     <script type="module" src="/src/main.jsx"></script>
 
-    <!-- ✅ PWA Service Worker -->
+    <!-- Service Worker Registration -->
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
@@ -121,6 +115,32 @@
             .catch((err) => console.error("❌ Service Worker registration failed:", err));
         });
       }
+    </script>
+
+    <!-- PWA Install Handling -->
+    <script type="module">
+      let deferredPrompt;
+      const installBtn = document.querySelector(".install-fab");
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = "block";
+        console.log("✅ Install prompt captured and ready.");
+      });
+
+      installBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) return alert("Install prompt not ready yet.");
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(outcome === "accepted" ? "✅ Installed" : "❌ Dismissed");
+        deferredPrompt = null;
+        installBtn.style.display = "none";
+      });
+
+      window.addEventListener("appinstalled", () => {
+        console.log("🎉 FiskeyTrade PWA installed successfully!");
+      });
     </script>
   </body>
   </html>
