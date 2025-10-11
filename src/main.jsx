@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./App.css";
 
+// Render the React app
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
@@ -17,4 +18,4 @@ if ("serviceWorker" in navigator) {
       .then((reg) => console.log("Service Worker registered:", reg.scope))
       .catch((err) => console.log("Service Worker registration failed:", err));
   });
-  }
+                          }
